@@ -6,21 +6,38 @@
     <title>Registro de persona</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
 <body>
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <form method="post" action="/personas/regist">
-        <div class="form-group">
-            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required="required">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre"
+                    required="required">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="sector">Sector:</label>
+                <input type="text" class="form-control" name="sector" id="sector" placeholder="Sector"
+                    required="required">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nivel">Nivel Escolar:</label>
+                <select class="form-control" id="nivel" required="required">
+                    <option selected>Elija su Nivel Escolar...</option>
+                    <option value="1">Básico</option>
+                    <option value="2">Medio</option>
+                    <option value="3">Grado Universitario</option>
+                    <option value="4">Posgrado</option>
+                    <option value="5">Doctorado</option>
+                </select>
+            </div>
+            <!-- Luego se supone que va el usuario y la ubicacion -->
         </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="sector" placeholder="Sector" required="required">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="nivel" placeholder="Nivel Escolar" required="required">
-        </div>
-        <!-- Luego se supone que va el usuario y la ubicacion -->
     </form>
 </body>
+
+</html>
