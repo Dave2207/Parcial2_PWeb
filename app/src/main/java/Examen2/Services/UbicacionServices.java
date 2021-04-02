@@ -1,4 +1,6 @@
-package Examen2;
+package Examen2.Services;
+
+import Examen2.ClasesBase.UbicacionGeo;
 
 public class UbicacionServices extends GestionDB<UbicacionGeo>{
     

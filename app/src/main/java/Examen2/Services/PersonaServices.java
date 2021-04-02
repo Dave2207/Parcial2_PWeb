@@ -1,4 +1,6 @@
-package Examen2;
+package Examen2.Services;
+
+import Examen2.ClasesBase.Persona;
 
 public class PersonaServices extends GestionDB<Persona>{
     

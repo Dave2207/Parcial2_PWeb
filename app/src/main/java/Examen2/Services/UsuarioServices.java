@@ -1,4 +1,6 @@
-package Examen2;
+package Examen2.Services;
+
+import Examen2.ClasesBase.Usuario;
 
 public class UsuarioServices extends GestionDB<Usuario>{
     

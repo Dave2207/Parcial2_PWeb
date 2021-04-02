@@ -1,9 +1,14 @@
-package Examen2;
+package Examen2.ClasesBase;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
-
-public class Usuario {
+@Entity
+public class Usuario implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -13,8 +18,7 @@ public class Usuario {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario") 
     private List<Persona> personasCreadas;
     
-    public Usuario(int id, String nombre, String contra, String rol) {
-        this.id = id;
+    public Usuario(String nombre, String contra, String rol) {
         this.nombre = nombre;
         this.contra = contra;
         this.rol = rol;

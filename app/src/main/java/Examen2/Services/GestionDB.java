@@ -1,4 +1,4 @@
-package Examen2;
+package Examen2.Services;
 
 import java.util.List;
 import javax.persistence.*;

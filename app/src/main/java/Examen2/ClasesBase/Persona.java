@@ -1,10 +1,10 @@
-package Examen2;
+package Examen2.ClasesBase;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Persona {
+public class Persona implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
