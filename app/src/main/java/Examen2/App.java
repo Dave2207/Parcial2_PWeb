@@ -22,10 +22,10 @@ public class App {
         new ControladoraRutas(app).aplicarRutas();
 
         app.start(7000);
-        if(UsuarioServices.getInstance().find("admin") == null){
+        if(UsuarioServices.getInstance().find(1) == null){
             UsuarioServices.getInstance().create(new Usuario("admin","admin","admin"));
         }
-        app.get("/", ctx -> ctx.redirect("/"));
+        //app.get("/", ctx -> ctx.redirect("/"));
         
 
     }

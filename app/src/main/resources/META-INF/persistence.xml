@@ -3,24 +3,25 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="MiUnidadPersistencia" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="Parcial2" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>Examen2.Persona</class>
-        <class>Examen2.UbicacionGeo</class>
-        <class>Examen2.Usuario</class>
+        <class>Examen2.ClasesBase.Persona</class>
+        <class>Examen2.ClasesBase.UbicacionGeo</class>
+        <class>Examen2.ClasesBase.Usuario</class>
         <!-- <class>main.java.logic</class> -->
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/provisional" />
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.user" value="sa" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/BDD;AUTO_SERVER=true" />
+            <property name="javax.persistence.jdbc.user" value="admin" />
+            <property name="javax.persistence.jdbc.password" value="admin" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create" />
             <!-- Indica como será la generación de las tablas en el motor-->
             <!-- ver la documentación: https://docs.oracle.com/javaee/7/tutorial/persistence-intro005.htm -->
             <property name="javax.persistence.schema-generation.database.action" value="create-drop"/>
+            <property name="show_sql" value="true"/>
+            <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
             <!--<property name="eclipselink.logging.level" value="ALL" />-->
         </properties>
     </persistence-unit>

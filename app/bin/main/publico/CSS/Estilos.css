@@ -1,0 +1,135 @@
+.separation-top {
+    margin-top: 2.5%;
+}
+
+.separation-bottom {
+    margin-bottom: 2.5%;
+}
+
+.big {
+    font-size: 20px;
+}
+
+.col-little {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 5%;
+}
+
+.vertical-sep {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.no-border {
+    border-top: none;
+    border-bottom: none;
+}
+
+.botones {
+    margin-top: 5%;
+}
+
+.no-right-marg {
+    margin-right: 1%;
+}
+
+.client-title {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+table,
+td {
+    color: whitesmoke;
+}
+
+th {
+    background-color: white;
+    color: black;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    max-width: 50%;
+    empty-cells: hide;
+}
+
+
+/*header {
+    float: center;
+}*/
+
+h2 {
+    width: 300px;
+    margin: 0 auto;
+}
+
+td.min {
+    width: 1%;
+    white-space: nowrap;
+}
+
+form>label {
+    font-size: 15px;
+}
+
+div.navbar-nav>a.nav-item.nav-link {
+    color: white;
+    transition: transform .2s;
+}
+
+div.navbar-nav>a.nav-item.nav-link:hover {
+    color: #0899dc;
+    text-decoration: none !important;
+}
+
+.rec {
+    position: relative;
+    width: 50%;
+    padding-top: 30%;
+    border: 5px solid white;
+}
+
+.but {
+    position: relative;
+    width: 50%;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/*
+.square:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}*/
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.card img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.desc {
+    border: 1px solid white;
+}

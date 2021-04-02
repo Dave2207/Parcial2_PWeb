@@ -15,6 +15,7 @@ public class Persona implements Serializable{
     private UbicacionGeo ubicacion;
     @ManyToOne
     private Usuario usuario;
+    private boolean active;
 
     public Persona(String nombre, String sector, String nivelEscolar, String latitud, String longitud, Usuario usuario) {
         this.nombre = nombre;
@@ -22,6 +23,7 @@ public class Persona implements Serializable{
         this.nivelEscolar = nivelEscolar;
         this.ubicacion = new UbicacionGeo(latitud, longitud);
         this.usuario = usuario;
+        this.active = true;
     }
     
     public Persona(){ 
@@ -56,5 +58,13 @@ public class Persona implements Serializable{
     }
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
