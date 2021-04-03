@@ -43,6 +43,10 @@ public class ControladoraRutas {
                     get("/list",ctx -> {//lista de personas
                     });
                     get("/regist",ctx -> {//formulario de creación
+                        HashMap<String, Object> modelo = new HashMap<>();
+
+                        modelo.put("editar", null);
+                        ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
                     });
