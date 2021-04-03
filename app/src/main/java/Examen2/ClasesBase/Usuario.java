@@ -17,11 +17,14 @@ public class Usuario implements Serializable{
     private String rol;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario") 
     private List<Persona> personasCreadas;
+    private boolean active;
     
     public Usuario(String nombre, String contra, String rol) {
         this.nombre = nombre;
         this.contra = contra;
         this.rol = rol;
+        this.active = true;
+
     }
 
     public Usuario(){
@@ -51,5 +54,25 @@ public class Usuario implements Serializable{
     }
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public List<Persona> getPersonasCreadas() {
+        return personasCreadas;
+    }
+
+    public void setPersonasCreadas(List<Persona> personasCreadas) {
+        this.personasCreadas = personasCreadas;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String toString() {
+        return this.nombre+"  "+this.contra+"  "+this.rol;
     }
 }

@@ -7,6 +7,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 import java.util.HashMap;
 
+import Examen2.ClasesBase.Usuario;
 import Examen2.Services.PersonaServices;
 import Examen2.Services.UbicacionServices;
 import Examen2.Services.UsuarioServices;
@@ -26,10 +27,11 @@ public class ControladoraRutas {
     public void aplicarRutas(){
         app.routes(() -> {
             get("/", ctx -> {//localhost:7000/ redirige al formulario de personas, que es donde está todo
-                ctx.redirect("/CRUD/registPersonas");
+                ctx.redirect("/app/personas/regist");
             });
-            path("/CRUD", () -> {
+            path("/app", () -> {
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
+                    ctx.sessionAttribute("user",true);
                     if(ctx.sessionAttribute("user") == null){
                         
                         ctx.redirect("/public/login/");
@@ -38,6 +40,8 @@ public class ControladoraRutas {
 
                 });
                 path("/personas", () -> {
+                    get("/list",ctx -> {//lista de personas
+                    });
                     get("/regist",ctx -> {//formulario de creación
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
@@ -48,13 +52,35 @@ public class ControladoraRutas {
                     });
                 });
                 path("/usuarios", () -> {
+                    get("/list",ctx -> {//lista de usuarios
+                        for (Usuario aux : usuarioServices.findAll()) {
+                            System.out.println(aux.toString()   );
+                        }
+                    });
                     get("/regist",ctx -> {//formulario de creación
+                        HashMap<String, Object> modelo = new HashMap<>();
+
+                        modelo.put("editar", null);
+                        ctx.render("/templates/thymeleaf/registrarUsuario.html",modelo);
+                        
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
+                        HashMap<String, Object> modelo = new HashMap<>();
+                        
+                        modelo.put("editar", true);
+                        ctx.render("/templates/thymeleaf/registrarUsuario.html",modelo);
                     });
                     get("/remove/:id",ctx -> {//remover usuario
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
+                        String nombre = ctx.formParam("nombre");
+                        String contra = ctx.formParam("contra");
+                        String rol = ctx.formParam("rol");
+                        Usuario aux = new Usuario(nombre, contra, rol);
+                        usuarioServices.create(aux);
+
+
+
                     });
                 });
             });
@@ -63,6 +89,12 @@ public class ControladoraRutas {
                 
                 HashMap<String, Object> modelo = new HashMap<>();
                 ctx.render("/templates/thymeleaf/login.html",modelo);
+            });
+            get("/persona", ctx -> {//Es una prueba
+                
+                
+                HashMap<String, Object> modelo = new HashMap<>();
+                ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
             });
         });
         

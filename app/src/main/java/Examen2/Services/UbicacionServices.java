@@ -18,4 +18,5 @@ public class UbicacionServices extends GestionDB<UbicacionGeo>{
         return ubicacionService;
     }
     
+    
 }
