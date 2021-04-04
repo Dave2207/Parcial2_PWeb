@@ -32,8 +32,8 @@
                         <td th:text="${user.nombre}"></td>
                         <td th:text="${user.contra}"></td>
                         <td>
-                            <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.userId}">Editar</a>
-                            <a class="btn btn-danger " th:href="'/tienda/usuarios/remove/' + ${user.Id}">Eliminar</a>
+                            <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.Id}">Editar</a>
+                            <a class="btn btn-danger " th:href="'/app/usuarios/remove/' + ${user.Id}">Eliminar</a>
                         </td>
 
                     </tr>

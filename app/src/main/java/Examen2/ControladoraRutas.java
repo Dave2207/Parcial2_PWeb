@@ -67,9 +67,14 @@ public class ControladoraRutas {
 
                 path("/usuarios", () -> {
                     get("/list",ctx -> {//lista de usuarios
-                        for (Usuario aux : usuarioServices.findAll()) {
-                            System.out.println(aux.toString());
-                        }
+                        // for (Usuario aux : usuarioServices.findAll()) {
+                        //     System.out.println(aux.toString());
+                        // }
+                        HashMap<String, Object> modelo = new HashMap<>();
+
+                        modelo.put("user", ctx.sessionAttribute("user"));
+                        modelo.put("users", usuarioServices.findAll());
+                        ctx.render("/templates/thymeleaf/listaUsuarios.html",modelo);
                     });
                     get("/regist",ctx -> {//formulario de creación
                         HashMap<String, Object> modelo = new HashMap<>();
@@ -95,6 +100,8 @@ public class ControladoraRutas {
                     get("/remove/:id",ctx -> {//remover usuario
                         int id = Integer.valueOf(ctx.pathParam("id"));
                         usuarioServices.delete(id);
+                        ctx.redirect("/app/usuarios/list");
+
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
@@ -113,6 +120,7 @@ public class ControladoraRutas {
                             usuarioServices.create(aux);
 
                         }
+                        ctx.redirect("/app/usuarios/list");
 
                     });
                 });
