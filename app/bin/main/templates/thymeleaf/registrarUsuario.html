@@ -21,6 +21,9 @@
         <div class="form-row separation-top separation-bottom">
             <div class="col align-self-center ">
                 <form method=post action="/app/usuarios/redit" id="redit" class="form">
+                    <div hidden>
+                        <input name="id" th:value="${id}" id="id" type="text" />
+                    </div>
                     <div class="col-12 offset-4">
                         <label for="test" class=big>Nombre</label>
                     </div>

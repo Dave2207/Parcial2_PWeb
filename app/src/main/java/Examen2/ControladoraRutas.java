@@ -55,6 +55,8 @@ public class ControladoraRutas {
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                     });
                 });
+
+
                 path("/usuarios", () -> {
                     get("/list",ctx -> {//lista de usuarios
                         for (Usuario aux : usuarioServices.findAll()) {
@@ -69,21 +71,38 @@ public class ControladoraRutas {
                         
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
+                        int id = Integer.valueOf(ctx.pathParam("id"));
+                        Usuario aux = usuarioServices.find(id);
+
                         HashMap<String, Object> modelo = new HashMap<>();
-                        
+                        modelo.put("id", aux.getId());
+                        modelo.put("nombre", aux.getNombre());
+                        modelo.put("contra", aux.getContra());
+                        modelo.put("rol", aux.getRol());
                         modelo.put("editar", true);
                         ctx.render("/templates/thymeleaf/registrarUsuario.html",modelo);
                     });
                     get("/remove/:id",ctx -> {//remover usuario
+                        int id = Integer.valueOf(ctx.pathParam("id"));
+                        usuarioServices.delete(id);
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
                         String contra = ctx.formParam("contra");
                         String rol = ctx.formParam("rol");
-                        Usuario aux = new Usuario(nombre, contra, rol);
-                        usuarioServices.create(aux);
+                        try{
+                            int id = Integer.valueOf(ctx.formParam("id"));
+                            Usuario entidad = usuarioServices.find(id);
+                            entidad.setNombre(nombre);
+                            entidad.setContra(contra);
+                            entidad.setRol(rol);
+                            entidad.setActive(true);
+                            usuarioServices.update(entidad);
+                        }catch(NumberFormatException e){
+                            Usuario aux = new Usuario(nombre, contra, rol);
+                            usuarioServices.create(aux);
 
-
+                        }
 
                     });
                 });
@@ -93,12 +112,6 @@ public class ControladoraRutas {
                 
                 HashMap<String, Object> modelo = new HashMap<>();
                 ctx.render("/templates/thymeleaf/login.html",modelo);
-            });
-            get("/persona", ctx -> {//Es una prueba
-                
-                
-                HashMap<String, Object> modelo = new HashMap<>();
-                ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
             });
         });
         

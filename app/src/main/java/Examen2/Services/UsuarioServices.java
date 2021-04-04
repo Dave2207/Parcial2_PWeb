@@ -27,17 +27,22 @@ public class UsuarioServices extends GestionDB<Usuario>{
         EntityManager em = getEntityManager();
 
         try {
-            Usuario usuario = em.find(Usuario.class, entidad.getId());
-            if(usuario == null){
+            Integer id = this.idSimilar(entidad.getNombre(), entidad.getContra(), entidad.getRol());
+            if(id != null){
+                Usuario usuario = em.find(Usuario.class, id);
+                usuario.setActive(true);
+
+                em.getTransaction().begin();
+                em.merge(usuario);
+                em.getTransaction().commit();
+            }else{
                 em.getTransaction().begin();
                 em.persist(entidad);
                 em.getTransaction().commit();
-            }else if(!usuario.isActive()){
-                entidad.setActive(true);
-                em.merge(entidad);
-                em.getTransaction().commit();
             }
 
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }finally {
             em.close();
         }
@@ -82,6 +87,30 @@ public class UsuarioServices extends GestionDB<Usuario>{
         } finally {
             em.close();
         }
+    }
+    private List<Usuario> findAllFull() throws PersistenceException {
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("select u from Usuario u");
+            List<Usuario> usuarios = query.getResultList();
+            return usuarios;
+        } finally {
+            em.close();
+        }
+    }
+
+    private Integer idSimilar(String nombre, String contra, String rol){
+        System.out.println("Nombre: "+nombre);
+        System.out.println("Contra: "+contra);
+        System.out.println("Rol: "+rol);
+
+        for (Usuario u : this.findAllFull()){
+            System.out.println(u.toString());
+            if(u.getNombre().equals(nombre) && u.getContra().equals(contra) && u.getRol().equals(rol)){
+                return u.getId();
+            }
+        }
+        return null;
     }
     
 }

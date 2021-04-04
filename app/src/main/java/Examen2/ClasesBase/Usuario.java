@@ -73,6 +73,6 @@ public class Usuario implements Serializable{
     }
 
     public String toString() {
-        return this.nombre+"  "+this.contra+"  "+this.rol;
+        return this.id+"  "+this.nombre+"  "+this.contra+"  "+this.rol;
     }
 }
