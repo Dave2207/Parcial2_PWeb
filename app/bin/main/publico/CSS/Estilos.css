@@ -39,19 +39,19 @@
     margin-left: 5%;
 }
 
-table,
-td {
-    color: whitesmoke;
-}
-
-th {
-    background-color: white;
-    color: black;
-}
-
 td,
 th {
     text-align: center;
+}
+
+td {
+    font-size: 22px;
+}
+
+th {
+    background-color: whitesmoke;
+    color: black;
+    font-size: 27px;
 }
 
 table {

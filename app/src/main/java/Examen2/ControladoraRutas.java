@@ -67,9 +67,6 @@ public class ControladoraRutas {
 
                 path("/usuarios", () -> {
                     get("/list",ctx -> {//lista de usuarios
-                        // for (Usuario aux : usuarioServices.findAll()) {
-                        //     System.out.println(aux.toString());
-                        // }
                         HashMap<String, Object> modelo = new HashMap<>();
 
                         modelo.put("user", ctx.sessionAttribute("user"));

@@ -6,50 +6,82 @@
     <title>Registro de persona</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
 <body class="p-3 mb-2 bg-dark text-white">
+    <script type="text/javascript">
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function success(pos) {
+            var crd = pos.coords;
+            document.getElementById("long").value = crd.longitude;
+            document.getElementById("lat").value = crd.latitude;
+        };
+
+        function error(err) {
+            console.warn('ERROR(' + err.code + '): ' + err.message);
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    </script>
+
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <div class="container-fluid">
         <div class="row separation-top">
             <div class="col align-self-center">
-                <h2>Registro</h2> 
+                <h2>Registro</h2>
             </div>
         </div>
         <div class="form-row separation-top separation-bottom">
             <div class="col align-self-center">
                 <form method="post" action="/app/personas/regist" class="form" id="reg">
                     <!-- Nombre -->
-                    <div class="col-12 offset-4">
+                    <div class="col-4 offset-4">
                         <label for="nombre" class=big>Nombre</label>
                     </div>
-                    <div class="col-12 offset-4">
+                    <div class="col-4 offset-4">
                         <input name="nombre" id="nombre" type="text" class="form-control form-control-lg col-4" required/>
                     </div>
                     <!-- Sector -->
-                    <div class="col-12 offset-4">
+                    <div class="col-4 offset-4">
                         <label for="sector" class=big>Sector</label>
                     </div>
-                    <div class="col-12 offset-4">
+                    <div class="col-4 offset-4">
                         <input name="sector" id="sector" type="text" class="form-control form-control-lg col-4" required/>
                     </div>
                     <!-- Nivel Escolar -->
-                    <div class="col-12 offset-4">
+                    <div class="col-4 offset-4">
                         <label for="nivel" class=big>Nivel Escolar</label>
                     </div>
-                    <div class="col-12 offset-4">
-                        <select class="form-control col-4" id="nivel" required="required">
-                            <option selected>Elija su Nivel Escolar...</option>
-                            <option value="1">Básico</option>
-                            <option value="2">Medio</option>
-                            <option value="3">Grado Universitario</option>
-                            <option value="4">Posgrado</option>
-                            <option value="5">Doctorado</option>
+                    <div class="col-4 offset-4">
+                        <select class="form-control col-4" id="nivel" required>
+                            <option class=big selected>Elija s  u Nivel Escolar...</option>
+                            <option class=big value="1">Básico</option>
+                            <option class=big value="2">Medio</option>
+                            <option class=big value="3">Grado Universitario</option>
+                            <option class=big value="4">Posgrado</option>
+                            <option class=big value="5">Doctorado</option>
                         </select>
                     </div>
-                    <div class="col-12 offset-4 separation-top">
+                    <div hidden>
+                        <div class="col-4 offset-4">
+                            <label for="lat" class=big>latitud</label>
+                        </div>
+                        <div class="col-4 offset-4">
+                            <input name="lat" id="lat" type="text" class="form-control form-control-lg col-4" readonly required/>
+                        </div>
+                        <div class="col-4 offset-4">
+                            <label for="long" class=big>longitud</label>
+                        </div>
+                        <div class="col-4 offset-4">
+                            <input name="long" id="long" type="text" class="form-control form-control-lg col-4" readonly required/>
+                        </div>
+                    </div>
+                    <div class="col-4 offset-4 separation-top">
                         <button class="btn btn-primary " type=submit form=reg>Aceptar</button>
                         <a class="btn btn-secondary " href="/">Cancelar</a>
                     </div>

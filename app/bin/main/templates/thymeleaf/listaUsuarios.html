@@ -18,25 +18,27 @@
             </div>
         </div>
         <div class="row">
-            <a class="btn btn-success offset-3 separation-bottom" href="/app/usuarios/regist">Nuevo Usuario</a>
-            <div class="table table-dark">
-                <table>
-                    <tr>
-                        <th>ID de Usuario</th>
-                        <th>Nombre de Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Acción</th>
+            <a class="btn btn-success col-1 offset-3 separation-bottom" href="/app/usuarios/regist">Nuevo Usuario</a>
+            <div>
+                <table class="table table-hover text-white">
+                    <tr class="bg-light text-black">
+                        <th scope="col">ID de Usuario</th>
+                        <th scope="col">Nombre de Usuario</th>
+                        <th scope="col">Contraseña</th>
+                        <th scope="col">Acción</th>
                     </tr>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.Id}"></td>
-                        <td th:text="${user.nombre}"></td>
-                        <td th:text="${user.contra}"></td>
-                        <td>
-                            <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.Id}">Editar</a>
-                            <a class="btn btn-danger " th:href="'/app/usuarios/remove/' + ${user.Id}">Eliminar</a>
-                        </td>
+                    <tbody class="tbody-dark">
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.Id}"></td>
+                            <td th:text="${user.nombre}"></td>
+                            <td th:text="${user.contra}"></td>
+                            <td>
+                                <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.Id}">Editar</a>
+                                <a class="btn btn-danger " th:href="'/app/usuarios/remove/' + ${user.Id}">Eliminar</a>
+                            </td>
 
-                    </tr>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
