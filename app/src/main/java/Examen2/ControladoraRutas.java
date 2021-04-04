@@ -27,15 +27,22 @@ public class ControladoraRutas {
     public void aplicarRutas(){
         app.routes(() -> {
             get("/", ctx -> {//localhost:7000/ redirige al formulario de personas, que es donde está todo
+
                 ctx.redirect("/app/personas/regist");
             });
             path("/app", () -> {
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
-                    ctx.sessionAttribute("user",true);
-                    if(ctx.sessionAttribute("user") == null){
-                        
-                        ctx.redirect("/public/login/");
+                    
+                    try{
+                        int id = Integer.valueOf(ctx.cookie("userID"));
+                        Usuario aux = usuarioServices.find(id);
+                        ctx.sessionAttribute("user",aux);
+                    }catch(Exception e){
+                    }
 
+                    if(ctx.sessionAttribute("user") == null){
+                        ctx.sessionAttribute("previousPath", ctx.path());
+                        ctx.redirect("/public/login/");
                     }
 
                 });
@@ -46,6 +53,7 @@ public class ControladoraRutas {
                         HashMap<String, Object> modelo = new HashMap<>();
 
                         modelo.put("editar", null);
+                        modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
@@ -60,13 +68,14 @@ public class ControladoraRutas {
                 path("/usuarios", () -> {
                     get("/list",ctx -> {//lista de usuarios
                         for (Usuario aux : usuarioServices.findAll()) {
-                            System.out.println(aux.toString()   );
+                            System.out.println(aux.toString());
                         }
                     });
                     get("/regist",ctx -> {//formulario de creación
                         HashMap<String, Object> modelo = new HashMap<>();
 
                         modelo.put("editar", null);
+                        modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/registrarUsuario.html",modelo);
                         
                     });
@@ -80,6 +89,7 @@ public class ControladoraRutas {
                         modelo.put("contra", aux.getContra());
                         modelo.put("rol", aux.getRol());
                         modelo.put("editar", true);
+                        modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/registrarUsuario.html",modelo);
                     });
                     get("/remove/:id",ctx -> {//remover usuario
@@ -108,10 +118,47 @@ public class ControladoraRutas {
                 });
             });
             get("/public/login", ctx -> {
-                
-                
                 HashMap<String, Object> modelo = new HashMap<>();
+                modelo.put("user", ctx.sessionAttribute("user"));
                 ctx.render("/templates/thymeleaf/login.html",modelo);
+            });
+            get("/public/logout", ctx -> {
+                ctx.removeCookie("userID", "/");
+                ctx.sessionAttribute("user",null);
+                ctx.redirect("/app/usuarios/list");
+            });
+            post("/public/login", ctx -> {
+                boolean validated;
+                int id = 0;
+                try {
+                    id = Integer.valueOf(ctx.formParam("id"));
+                    String contra = ctx.formParam("contra");
+                    validated = usuarioServices.validate(id, contra);
+                }catch (NumberFormatException e){
+                    validated = false;
+                }
+
+                if(validated){
+                    ctx.sessionAttribute("user",usuarioServices.find(id));
+                    if(ctx.formParam("rememberMe") != null){
+                        ctx.cookie("userID", Integer.valueOf(id).toString(), 60*60*24*7);//Se guarda el id en una cookie. Al entrar en otra sesión se busca el usuario con ese id.
+                    }
+                    
+                    String previousPath = ctx.sessionAttribute("previousPath");
+                    if(previousPath == null){
+                        previousPath = "/app/usuarios/list";
+                    }
+                    
+                    ctx.redirect(previousPath);
+
+                }else{
+                    HashMap<String, Object> modelo = new HashMap<>();
+                    modelo.put("error", true);
+                    ctx.render("/templates/thymeleaf/login.html",modelo);
+
+                }
+                
+                
             });
         });
         

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Administrar Usuarios</title>
+    <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
+    <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
+
+</head>
+
+<body class="p-3 mb-2 bg-dark text-white">
+    <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
+    <div class="container-fluid">
+        <div class="row separation-top separation-bottom">
+            <div class="col align-self-center">
+                <h2>Administrar Usuarios</h2>
+            </div>
+        </div>
+        <div class="row">
+            <a class="btn btn-success offset-3 separation-bottom" href="/app/usuarios/regist">Nuevo Usuario</a>
+            <div class="table table-dark">
+                <table>
+                    <tr>
+                        <th>ID de Usuario</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Acción</th>
+                    </tr>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.Id}"></td>
+                        <td th:text="${user.nombre}"></td>
+                        <td th:text="${user.contra}"></td>
+                        <td>
+                            <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.userId}">Editar</a>
+                            <a class="btn btn-danger " th:href="'/tienda/usuarios/remove/' + ${user.Id}">Eliminar</a>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+</body>
+
+</html>

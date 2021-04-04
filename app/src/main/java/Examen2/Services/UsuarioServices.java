@@ -100,17 +100,21 @@ public class UsuarioServices extends GestionDB<Usuario>{
     }
 
     private Integer idSimilar(String nombre, String contra, String rol){
-        System.out.println("Nombre: "+nombre);
-        System.out.println("Contra: "+contra);
-        System.out.println("Rol: "+rol);
-
         for (Usuario u : this.findAllFull()){
-            System.out.println(u.toString());
             if(u.getNombre().equals(nombre) && u.getContra().equals(contra) && u.getRol().equals(rol)){
                 return u.getId();
             }
         }
         return null;
+    }
+
+    public boolean validate(int id, String contra){
+        for (Usuario u : this.findAll()) {
+            if(u.getId() == id && u.getContra().equals(contra)){
+                return true;
+            }
+        }
+        return false;
     }
     
 }
