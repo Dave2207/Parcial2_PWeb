@@ -7,6 +7,8 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 import java.util.HashMap;
 
+import Examen2.ClasesBase.Persona;
+import Examen2.ClasesBase.UbicacionGeo;
 import Examen2.ClasesBase.Usuario;
 import Examen2.Services.PersonaServices;
 import Examen2.Services.UbicacionServices;
@@ -61,6 +63,31 @@ public class ControladoraRutas {
                     get("/remove/:id",ctx -> {//remover persona
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
+                        String nombre = ctx.formParam("nombre");
+                        String sector = ctx.formParam("sector");
+                        String nivelEscolar = ctx.formParam("nivel");
+                        String latitud = ctx.formParam("lat");
+                        String longitud = ctx.formParam("long");
+                        //El ID de la persona y la ubicacion deberian ser los mismos
+                        try {
+                            int id = 1; //Valor de prueba, agrego luego el parametro en el html
+                            UbicacionGeo ubi = ubicacionServices.find(id);
+                            Persona person = personaServices.find(id);
+                            ubi.setLatitud(latitud);
+                            ubi.setLongitud(longitud);
+                            //ubicacionServices.update(ubi);
+                            person.setNombre(nombre);
+                            person.setSector(sector);
+                            person.setNivelEscolar(nivelEscolar);
+                            person.setUbicacion(ubi);
+                            person.setUsuario(ctx.sessionAttribute("user"));
+                            personaServices.update(person);
+
+                        } catch (NumberFormatException e) {
+                            Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"));
+
+                        }
+                        ctx.redirect("/app/personas/regist");
                     });
                 });
 
