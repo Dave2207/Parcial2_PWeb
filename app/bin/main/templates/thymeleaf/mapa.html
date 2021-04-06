@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ubicación</title>
+    <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
+    <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
+</head>
+
+<head>
+
+    <title>Add Map</title>
+    <script>
+        function initMap() {
+
+            const uluru = {
+                //lat: parseInt(document.getElementById("lat")),
+                //lng: parseInt(document.getElementById("long"))
+                lat: 10,
+                lng: 10
+            };
+            // The map, centered at Uluru
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h3>My Google Maps Demo</h3>
+    <!-- <div hidden>
+        <p id=lat th:value="${lat}"></p>
+        <p id=lon th:value="${lon}"></p>
+    </div> -->
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly" async></script>
+</body>
+
+</html>

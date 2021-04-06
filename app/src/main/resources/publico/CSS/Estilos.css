@@ -91,6 +91,18 @@ div.navbar-nav>a.nav-item.nav-link:hover {
     text-decoration: none !important;
 }
 
+td>a {
+    text-decoration: none;
+    color: white;
+    transition: transform .2s;
+}
+
+td>a:hover {
+    text-decoration: none;
+    color: #0899dc;
+    text-decoration: none !important;
+}
+
 .rec {
     position: relative;
     width: 50%;
@@ -132,4 +144,9 @@ div.navbar-nav>a.nav-item.nav-link:hover {
 
 .desc {
     border: 1px solid white;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
 }

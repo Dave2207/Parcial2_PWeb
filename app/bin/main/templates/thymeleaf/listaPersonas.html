@@ -40,7 +40,7 @@
                             <td th:text="${persona.sector}"></td>
                             <td th:text="${persona.nivelEscolar}"></td>
                             <td>
-                                <a th:text="${persona.ubicacion.latitud}+', '+${persona.ubicacion.longitud}"></a>
+                                <a th:href="'/app/personas/ubicacion/'+${persona.id}" th:text="${persona.ubicacion.latitud}+', '+${persona.ubicacion.longitud}"></a>
                             </td>
                             <td th:text="${persona.usuario.nombre}"></td>
                             <td>

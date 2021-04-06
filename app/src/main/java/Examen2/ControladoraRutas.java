@@ -54,9 +54,7 @@ public class ControladoraRutas {
 
                         modelo.put("user", ctx.sessionAttribute("user"));
                         modelo.put("personas", personaServices.findAll());
-                        for (Persona p : personaServices.findAll()) {
-                            System.out.println(p.toString());
-                        }
+                        
                         ctx.render("/templates/thymeleaf/listaPersonas.html",modelo);
                     });
                     get("/regist",ctx -> {//formulario de creación
@@ -96,6 +94,18 @@ public class ControladoraRutas {
                             personaServices.delete(id);
                             ctx.redirect("/app/personas/list");
                         }
+                    });
+                    get("/ubicacion/:id",ctx -> {//remover usuario
+                        int id = Integer.valueOf(ctx.pathParam("id"));
+                        usuarioServices.delete(id);
+                        Persona aux = personaServices.find(id);
+                        HashMap<String, Object> modelo = new HashMap<>();
+                        modelo.put("lat", aux.getUbicacion().getLatitud());
+                        modelo.put("long", aux.getUbicacion().getLongitud());
+                        modelo.put("user", ctx.sessionAttribute("user"));
+                        ctx.render("/templates/thymeleaf/mapa.html",modelo);
+                        
+
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
