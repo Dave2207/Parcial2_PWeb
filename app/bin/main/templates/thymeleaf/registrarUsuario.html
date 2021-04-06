@@ -25,22 +25,26 @@
                         <input name="id" th:value="${id}" id="id" type="text" />
                     </div>
                     <div class="col-4 offset-4">
-                        <label for="test" class=big>Nombre</label>
+                        <label for="nombre" class=big>Nombre</label>
                     </div>
                     <div class="col-4 offset-4">
                         <input name="nombre" id="nombre" type="text" th:placeholder="${nombre}" class="form-control form-control-lg col-4" required/>
                     </div>
                     <div class="col-4 offset-4">
-                        <label for="test" class=big>Contraseña</label>
+                        <label for="contra" class=big>Contraseña</label>
                     </div>
                     <div class="col-4 offset-4">
                         <input name="contra" id="contra" type="password" th:placeholder="${contra}" class="form-control form-control-lg col-4" required/>
                     </div>
                     <div class="col-4 offset-4">
-                        <label for="test" class=big>Rol</label>
+                        <label for="rol" class=big>Rol</label>
                     </div>
                     <div class="col-4 offset-4">
-                        <input name="rol" id="rol" type="text" th:placeholder="${rol}" class="form-control form-control-lg col-4" required/>
+                        <select class="form-control col-4" id="rol" name="rol" required>
+                            <option class=big selected>Escoja el rol...</option>
+                            <option class=big value="1">Encuestador</option>
+                            <option class=big value="2">Administrador</option>
+                        </select>
                     </div>
                     <div class="col-4 offset-4 separation-top">
                         <button class="btn btn-primary " type=submit form=redit>Aceptar</button>

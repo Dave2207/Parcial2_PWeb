@@ -99,6 +99,17 @@ public class UsuarioServices extends GestionDB<Usuario>{
         }
     }
 
+    private List<Usuario> findAllAdministradores() throws PersistenceException {
+        EntityManager em = getEntityManager();
+        try{
+            Query query = em.createQuery("select u from Usuario u where u.active = true and u.rol = 'Administrador'");
+            List<Usuario> usuarios = query.getResultList();
+            return usuarios;
+        } finally {
+            em.close();
+        }
+    }
+
     private Integer idSimilar(String nombre, String contra, String rol){
         for (Usuario u : this.findAllFull()){
             if(u.getNombre().equals(nombre) && u.getContra().equals(contra) && u.getRol().equals(rol)){
@@ -109,7 +120,7 @@ public class UsuarioServices extends GestionDB<Usuario>{
     }
 
     public boolean validate(int id, String contra){
-        for (Usuario u : this.findAll()) {
+        for (Usuario u : this.findAllAdministradores()) {
             if(u.getId() == id && u.getContra().equals(contra)){
                 return true;
             }
