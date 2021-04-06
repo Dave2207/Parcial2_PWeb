@@ -64,6 +64,10 @@ public class ControladoraRutas {
                         ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
+                        Usuario usr = ctx.sessionAttribute("user");
+                        if(!usr.getRol().equals("Administrador")){
+                            ctx.render("/templates/thymeleaf/error.html");
+                        } else {
                         int id = Integer.valueOf(ctx.pathParam("id"));
                         Persona aux = personaServices.find(id);
 
@@ -77,12 +81,18 @@ public class ControladoraRutas {
                         modelo.put("editar", true);
                         modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
+                        }
 
                     });
                     get("/remove/:id",ctx -> {//remover persona
-                        int id = Integer.valueOf(ctx.pathParam("id"));
-                        personaServices.delete(id);
-                        ctx.redirect("/app/personas/list");
+                        Usuario usr = ctx.sessionAttribute("user");
+                        if(!usr.getRol().equals("Administrador")){
+                            ctx.render("/templates/thymeleaf/error.html");
+                        } else {
+                            int id = Integer.valueOf(ctx.pathParam("id"));
+                            personaServices.delete(id);
+                            ctx.redirect("/app/personas/list");
+                        }
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");

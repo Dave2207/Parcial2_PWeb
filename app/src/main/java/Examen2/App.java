@@ -23,7 +23,7 @@ public class App {
 
         app.start(7000);
         if(UsuarioServices.getInstance().find(1) == null){
-            UsuarioServices.getInstance().create(new Usuario("admin","admin","Administradores"));
+            UsuarioServices.getInstance().create(new Usuario("admin","admin","Administrador"));
         }
         //app.get("/", ctx -> ctx.redirect("/"));
         

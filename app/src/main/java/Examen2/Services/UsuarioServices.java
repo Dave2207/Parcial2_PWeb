@@ -120,7 +120,7 @@ public class UsuarioServices extends GestionDB<Usuario>{
     }
 
     public boolean validate(int id, String contra){
-        for (Usuario u : this.findAllAdministradores()) {
+        for (Usuario u : this.findAll()) {
             if(u.getId() == id && u.getContra().equals(contra)){
                 return true;
             }
