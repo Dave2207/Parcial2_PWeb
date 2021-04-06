@@ -128,11 +128,16 @@ public class ControladoraRutas {
 
                 path("/usuarios", () -> {
                     get("/list",ctx -> {//lista de usuarios
-                        HashMap<String, Object> modelo = new HashMap<>();
+                        Usuario usr = ctx.sessionAttribute("user");
+                        if(!usr.getRol().equals("Administrador")){
+                            ctx.render("/templates/thymeleaf/error.html");
+                        } else {
+                            HashMap<String, Object> modelo = new HashMap<>();
 
-                        modelo.put("user", ctx.sessionAttribute("user"));
-                        modelo.put("users", usuarioServices.findAll());
-                        ctx.render("/templates/thymeleaf/listaUsuarios.html",modelo);
+                            modelo.put("user", ctx.sessionAttribute("user"));
+                            modelo.put("users", usuarioServices.findAll());
+                            ctx.render("/templates/thymeleaf/listaUsuarios.html",modelo);
+                        }
                     });
                     get("/regist",ctx -> {//formulario de creación
                         HashMap<String, Object> modelo = new HashMap<>();
@@ -191,7 +196,7 @@ public class ControladoraRutas {
             get("/public/logout", ctx -> {
                 ctx.removeCookie("userID", "/");
                 ctx.sessionAttribute("user",null);
-                ctx.redirect("/app/usuarios/list");
+                ctx.redirect("/public/login");
             });
             post("/public/login", ctx -> {
                 boolean validated;
@@ -222,9 +227,7 @@ public class ControladoraRutas {
                     modelo.put("error", true);
                     ctx.render("/templates/thymeleaf/login.html",modelo);
 
-                }
-                
-                
+                }    
             });
         });
         
