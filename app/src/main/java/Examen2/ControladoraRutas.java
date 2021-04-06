@@ -109,6 +109,7 @@ public class ControladoraRutas {
                             ubicacionServices.create(ubicacion);
                             Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"));
                             personaServices.create(person);
+                            System.out.println("Se ha creado 1 persona: "+person.getNombre());
                         }
                         ctx.redirect("/app/personas/regist");
                     });

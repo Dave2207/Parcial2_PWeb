@@ -22,18 +22,19 @@
                     <th>Nivel Escolar</th>
                     <!-- <th>Ubicación</th> -->
                     <th>Usuario</th>
+                    <th>Acción</th>
                     <!-- <th>Activo</th> -->
                 </tr>
             </thead>
             <tbody class="tbody-dark">
                 <!-- Aqui iran los datos de las personas -->
                 <tr th:each="persona : ${personas}">
-                    <td th:each="${persona.id}"></td>
-                    <td th:each="${persona.nombre}"></td>
-                    <td th:each="${persona.sector}"></td>
-                    <td th:each="${persona.nivel}"></td>
+                    <td th:text="${persona.id}"></td>
+                    <td th:text="${persona.nombre}"></td>
+                    <td th:text="${persona.sector}"></td>
+                    <td th:text="${persona.nivelEscolar}"></td>
                     <!-- <td th:each="${persona.ubicacion}"></td> -->
-                    <td th:each="${persona.usuario}"></td>
+                    <td th:text="${persona.usuario}"></td>
                     <td>
                         <a class="btn btn-warning " th:href="'/app/personas/edit/' + ${persona.Id}">Editar</a>
                         <a class="btn btn-danger " th:href="'/app/personas/remove/' + ${persona.Id}">Eliminar</a>
