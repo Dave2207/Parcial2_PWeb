@@ -54,6 +54,9 @@ public class ControladoraRutas {
 
                         modelo.put("user", ctx.sessionAttribute("user"));
                         modelo.put("personas", personaServices.findAll());
+                        for (Persona p : personaServices.findAll()) {
+                            System.out.println(p.toString());
+                        }
                         ctx.render("/templates/thymeleaf/listaPersonas.html",modelo);
                     });
                     get("/regist",ctx -> {//formulario de creación
@@ -75,7 +78,7 @@ public class ControladoraRutas {
                         modelo.put("id", aux.getId());
                         modelo.put("nombre", aux.getNombre());
                         modelo.put("sector", aux.getSector());
-                        modelo.put("nivel", aux.getNivelEscolar());
+                        modelo.put("nivelEscolar", aux.getNivelEscolar());
                         modelo.put("lat", aux.getUbicacion().getLatitud());
                         modelo.put("long", aux.getUbicacion().getLongitud());
                         modelo.put("editar", true);
@@ -97,7 +100,7 @@ public class ControladoraRutas {
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
                         String sector = ctx.formParam("sector");
-                        String nivelEscolar = ctx.formParam("nivel");
+                        String nivelEscolar = ctx.formParam("nivelEscolar");
                         String latitud = ctx.formParam("lat");
                         String longitud = ctx.formParam("long");
                         
