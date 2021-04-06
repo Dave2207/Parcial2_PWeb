@@ -105,11 +105,11 @@ public class ControladoraRutas {
                             person.setUsuario(ctx.sessionAttribute("user"));
                             personaServices.update(person);
                         } catch (NumberFormatException e) {
-                            UbicacionGeo ubicacion = new UbicacionGeo(latitud,longitud);
-                            ubicacionServices.create(ubicacion);
                             Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"));
+                            UbicacionGeo ubicacion = person.getUbicacion();
+                            ubicacionServices.create(ubicacion);
                             personaServices.create(person);
-                            System.out.println("Se ha creado 1 persona: "+person.getNombre());
+                            //System.out.println("Se ha creado 1 persona: "+person.getNombre());
                         }
                         ctx.redirect("/app/personas/regist");
                     });
