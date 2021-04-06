@@ -64,7 +64,7 @@ public class ControladoraRutas {
                         ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
-                        int id = Integer.valueOf(ctx.formParam("id"));
+                        int id = Integer.valueOf(ctx.pathParam("id"));
                         Persona aux = personaServices.find(id);
 
                         HashMap<String, Object> modelo = new HashMap<>();
@@ -80,7 +80,7 @@ public class ControladoraRutas {
 
                     });
                     get("/remove/:id",ctx -> {//remover persona
-                        int id = Integer.valueOf(ctx.formParam("id"));
+                        int id = Integer.valueOf(ctx.pathParam("id"));
                         personaServices.delete(id);
                         ctx.redirect("/app/personas/list");
                     });
