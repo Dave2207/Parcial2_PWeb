@@ -6,42 +6,50 @@
     <title>Lista de Personas</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 
 <body class="p-3 mb-2 bg-dark text-white">
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
-
-    <div class="container text-center">
-        <table class="table table-hover text-white">
-            <thead>
-                <tr class="bg-light text-black">
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Sector</th>
-                    <th>Nivel Escolar</th>
-                    <!-- <th>Ubicación</th> -->
-                    <th>Usuario</th>
-                    <th>Acción</th>
-                    <!-- <th>Activo</th> -->
-                </tr>
-            </thead>
-            <tbody class="tbody-dark">
-                <!-- Aqui iran los datos de las personas -->
-                <tr th:each="persona : ${personas}">
-                    <td th:text="${persona.id}"></td>
-                    <td th:text="${persona.nombre}"></td>
-                    <td th:text="${persona.sector}"></td>
-                    <td th:text="${persona.nivelEscolar}"></td>
-                    <!-- <td th:each="${persona.ubicacion}"></td> -->
-                    <td th:text="${persona.usuario.nombre}"></td>
-                    <td>
-                        <a class="btn btn-warning " th:href="'/app/personas/edit/' + ${persona.Id}">Editar</a>
-                        <a class="btn btn-danger " th:href="'/app/personas/remove/' + ${persona.Id}">Eliminar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container-fluid">
+        <div class="row separation-top separation-bottom">
+            <div class="col align-self-center">
+                <h2>Administrar Personas</h2>
+            </div>
+        </div>
+        <div class="row">
+            <a class="btn btn-success col-1 offset-3 separation-bottom" href="/app/usuarios/regist">Agregar Persona</a>
+            <div>
+                <table class="table table-hover text-white">
+                    <thead>
+                        <tr class="bg-light text-black">
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Sector</th>
+                            <th>Nivel Escolar</th>
+                            <th>Ubicación</th>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                            <!-- <th>Activo</th> -->
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-dark">
+                        <!-- Aqui iran los datos de las personas -->
+                        <tr th:each="persona : ${personas}">
+                            <td th:text="${persona.id}"></td>
+                            <td th:text="${persona.nombre}"></td>
+                            <td th:text="${persona.sector}"></td>
+                            <td th:text="${persona.nivelEscolar}"></td>
+                            <td th:each="'${persona.ubicacion.latitud}'+','+'${persona.ubicacion.longitud}'"></td>
+                            <td th:text="${persona.usuario.nombre}"></td>
+                            <td>
+                                <a class="btn btn-warning " th:href="'/app/personas/edit/' + ${persona.Id}">Editar</a>
+                                <a class="btn btn-danger " th:href="'/app/personas/remove/' + ${persona.Id}">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 

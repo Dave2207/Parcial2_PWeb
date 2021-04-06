@@ -3,12 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Registro de persona</title>
+    <title th:if="${editar == null}">Registro</title>
+    <title th:if="${editar != null}">Editar</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
 </head>
 
 <body class="p-3 mb-2 bg-dark text-white">
+    <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <script type="text/javascript">
         var options = {
             enableHighAccuracy: true,
@@ -28,12 +30,11 @@
 
         navigator.geolocation.getCurrentPosition(success, error, options);
     </script>
-
-    <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <div class="container-fluid">
         <div class="row separation-top">
-            <div class="col align-self-center">
-                <h2>Registro</h2>
+            <div class="col align-self-center ">
+                <h2 th:if="${editar == null}">Registro</h2>
+                <h2 th:if="${editar != null}">Editar</h2>
             </div>
         </div>
         <div class="form-row separation-top separation-bottom">

@@ -6,7 +6,6 @@
     <title>Administrar Usuarios</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
-
 </head>
 
 <body class="p-3 mb-2 bg-dark text-white">
@@ -36,7 +35,6 @@
                                 <a class="btn btn-warning " th:href="'/app/usuarios/edit/' + ${user.Id}">Editar</a>
                                 <a class="btn btn-danger " th:href="'/app/usuarios/remove/' + ${user.Id}">Eliminar</a>
                             </td>
-
                         </tr>
                     </tbody>
                 </table>

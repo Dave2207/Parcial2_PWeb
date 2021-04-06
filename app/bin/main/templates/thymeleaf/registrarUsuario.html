@@ -3,8 +3,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:if="${accion == 'Crear'}">Nuevo Usuario</title>
-    <title th:if="${accion == 'Editar'}">Editar Usuario</title>
+    <title th:if="${editar == null}">Nuevo Usuario</title>
+    <title th:if="${editar != null}">Editar Usuario</title>
     <div th:replace="/templates/thymeleaf/fragments.html :: imports"></div>
     <link rel='stylesheet' href='/CSS/Estilos.css' type='text/css'>
 </head>
