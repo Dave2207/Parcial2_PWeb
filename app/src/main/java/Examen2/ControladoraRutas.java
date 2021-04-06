@@ -50,6 +50,11 @@ public class ControladoraRutas {
                 });
                 path("/personas", () -> {
                     get("/list",ctx -> {//lista de personas
+                        HashMap<String, Object> modelo = new HashMap<>();
+
+                        modelo.put("user", ctx.sessionAttribute("user"));
+                        modelo.put("personas", personaServices.findAll());
+                        ctx.render("/templates/thymeleaf/listaPersonas.html",modelo);
                     });
                     get("/regist",ctx -> {//formulario de creación
                         HashMap<String, Object> modelo = new HashMap<>();
@@ -59,8 +64,25 @@ public class ControladoraRutas {
                         ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
                     });
                     get("/edit/:id",ctx -> {//formulario de edicion
+                        int id = Integer.valueOf(ctx.formParam("id"));
+                        Persona aux = personaServices.find(id);
+
+                        HashMap<String, Object> modelo = new HashMap<>();
+                        modelo.put("id", aux.getId());
+                        modelo.put("nombre", aux.getNombre());
+                        modelo.put("sector", aux.getSector());
+                        modelo.put("nivel", aux.getNivelEscolar());
+                        modelo.put("lat", aux.getUbicacion().getLatitud());
+                        modelo.put("long", aux.getUbicacion().getLongitud());
+                        modelo.put("editar", true);
+                        modelo.put("user", ctx.sessionAttribute("user"));
+                        ctx.render("/templates/thymeleaf/registrarPersona.html",modelo);
+
                     });
                     get("/remove/:id",ctx -> {//remover persona
+                        int id = Integer.valueOf(ctx.formParam("id"));
+                        personaServices.delete(id);
+                        ctx.redirect("/app/personas/list");
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
@@ -68,24 +90,25 @@ public class ControladoraRutas {
                         String nivelEscolar = ctx.formParam("nivel");
                         String latitud = ctx.formParam("lat");
                         String longitud = ctx.formParam("long");
-                        //El ID de la persona y la ubicacion deberian ser los mismos
+                        
                         try {
-                            int id = 1; //Valor de prueba, agrego luego el parametro en el html
+                            int id = Integer.valueOf(ctx.formParam("id"));
                             UbicacionGeo ubi = ubicacionServices.find(id);
                             Persona person = personaServices.find(id);
                             ubi.setLatitud(latitud);
                             ubi.setLongitud(longitud);
-                            //ubicacionServices.update(ubi);
+                            ubicacionServices.update(ubi);
                             person.setNombre(nombre);
                             person.setSector(sector);
                             person.setNivelEscolar(nivelEscolar);
                             person.setUbicacion(ubi);
                             person.setUsuario(ctx.sessionAttribute("user"));
                             personaServices.update(person);
-
                         } catch (NumberFormatException e) {
+                            UbicacionGeo ubicacion = new UbicacionGeo(latitud,longitud);
+                            ubicacionServices.create(ubicacion);
                             Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"));
-
+                            personaServices.create(person);
                         }
                         ctx.redirect("/app/personas/regist");
                     });

@@ -39,6 +39,10 @@
         <div class="form-row separation-top separation-bottom">
             <div class="col align-self-center">
                 <form method="post" action="/app/personas/redit" class="form" id="reg">
+                    <!-- ID -->
+                    <div hidden>
+                        <input name="id" th:value="${id}" id="id" type="text" />
+                    </div>
                     <!-- Nombre -->
                     <div class="col-4 offset-4">
                         <label for="nombre" class=big>Nombre</label>
