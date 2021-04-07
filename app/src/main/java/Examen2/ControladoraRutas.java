@@ -97,7 +97,6 @@ public class ControladoraRutas {
                     });
                     get("/ubicacion/:id",ctx -> {//remover usuario
                         int id = Integer.valueOf(ctx.pathParam("id"));
-                        usuarioServices.delete(id);
                         Persona aux = personaServices.find(id);
                         HashMap<String, Object> modelo = new HashMap<>();
                         modelo.put("lat", aux.getUbicacion().getLatitud());
@@ -202,9 +201,18 @@ public class ControladoraRutas {
                 });
             });
             get("/public/login", ctx -> {
-                HashMap<String, Object> modelo = new HashMap<>();
-                modelo.put("user", ctx.sessionAttribute("user"));
-                ctx.render("/templates/thymeleaf/login.html",modelo);
+                if(ctx.sessionAttribute("user")==null){
+                    HashMap<String, Object> modelo = new HashMap<>();
+                    modelo.put("user", ctx.sessionAttribute("user"));
+                    ctx.render("/templates/thymeleaf/login.html",modelo);
+                }else{
+                    String previousPath = ctx.sessionAttribute("previousPath");
+                    if(previousPath == null){
+                        previousPath = "/app/personas/regist";
+                    }
+                    
+                    ctx.redirect(previousPath);
+                }
             });
             get("/public/logout", ctx -> {
                 ctx.removeCookie("userID", "/");
@@ -230,7 +238,7 @@ public class ControladoraRutas {
                     
                     String previousPath = ctx.sessionAttribute("previousPath");
                     if(previousPath == null){
-                        previousPath = "/app/usuarios/list";
+                        previousPath = "/app/personas/regist";
                     }
                     
                     ctx.redirect(previousPath);
