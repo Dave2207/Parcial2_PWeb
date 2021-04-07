@@ -99,6 +99,7 @@ public class ControladoraRutas {
                         int id = Integer.valueOf(ctx.pathParam("id"));
                         Persona aux = personaServices.find(id);
                         HashMap<String, Object> modelo = new HashMap<>();
+                        modelo.put("persona", aux);
                         modelo.put("lat", aux.getUbicacion().getLatitud());
                         modelo.put("long", aux.getUbicacion().getLongitud());
                         modelo.put("user", ctx.sessionAttribute("user"));
