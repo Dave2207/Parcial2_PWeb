@@ -14,7 +14,7 @@ import Examen2.Services.PersonaServices;
 import Examen2.Services.UbicacionServices;
 import Examen2.Services.UsuarioServices;
 
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 public class ControladoraRutas {
     Javalin app;
     private UsuarioServices usuarioServices = UsuarioServices.getInstance();
@@ -28,6 +28,11 @@ public class ControladoraRutas {
 
     public void aplicarRutas(){
         app.routes(() -> {
+           /* ws("/websocket/algo", ws -> {
+                ObjectMapper mapper = new ObjectMapper();
+                ws.onConnect(ctx -> System.out.println("Connected"));
+                ws.onMessage(ctx -> System.out.println("Enviaron un mensaje"));
+            });*/
             get("/", ctx -> {//localhost:7000/ redirige al formulario de personas, que es donde está todo
 
                 ctx.redirect("/app/personas/regist");
@@ -146,9 +151,19 @@ public class ControladoraRutas {
                             ctx.render("/templates/thymeleaf/error.html");
                         } else {
                             HashMap<String, Object> modelo = new HashMap<>();
-
-                            modelo.put("user", ctx.sessionAttribute("user"));
+                            
+                            modelo.put("user", usr);
                             modelo.put("users", usuarioServices.findAll());
+                            
+
+                            // //prueba
+                            // ObjectMapper mapper = new ObjectMapper();
+                            // String JSON = mapper.writeValueAsString(usr);
+                            // modelo.put("userJSON", JSON); //para pasar de objeto a JSON
+                            // modelo.put("usr", mapper.readValue(JSON, Usuario.class)); //para pasar de JSON a objeto
+                            // ///////
+
+
                             ctx.render("/templates/thymeleaf/listaUsuarios.html",modelo);
                         }
                     });
@@ -183,19 +198,31 @@ public class ControladoraRutas {
                         String nombre = ctx.formParam("nombre");
                         String contra = ctx.formParam("contra");
                         String rol = ctx.formParam("rol");
+                        String status = ctx.formParam("status");
+                        Usuario aux = null;
+                        int id = -1;
                         try{
-                            int id = Integer.valueOf(ctx.formParam("id"));
-                            Usuario entidad = usuarioServices.find(id);
-                            entidad.setNombre(nombre);
-                            entidad.setContra(contra);
-                            entidad.setRol(rol);
-                            entidad.setActive(true);
-                            usuarioServices.update(entidad);
+                            id = Integer.valueOf(ctx.formParam("id"));
+                            aux = usuarioServices.find(id);
+                            aux.setNombre(nombre);
+                            aux.setContra(contra);
+                            aux.setRol(rol);
+                            aux.setActive(true);
+                            usuarioServices.update(aux);
                         }catch(NumberFormatException e){
-                            Usuario aux = new Usuario(nombre, contra, rol);
+                            aux = new Usuario(nombre, contra, rol);
                             usuarioServices.create(aux);
 
                         }
+
+                        // if(status == "online"){
+                        //     if(id == -1){
+
+                        //     }else{
+                                
+                        //     }
+                        // }
+
                         ctx.redirect("/app/usuarios/list");
 
                     });

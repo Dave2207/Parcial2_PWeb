@@ -12,21 +12,16 @@
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <div class="container-fluid">
         <div class="row separation-top separation-bottom">
-            <div class="align-self-center">
-                <h2 style="white-space: nowrap;">Ubicación de registro</h2>
-                <br>
-                <h2 style="white-space: nowrap;" th:text="${persona.nombre}"></h2>
-
+            <div class="d-flex justify-content-center separation-top separation-bottom">
+                <h2 style="white-space: nowrap;" th:text="'Ubicación de registro de '+${persona.nombre}"></h2>
             </div>
         </div>
         <div class="d-flex justify-content-center separation-top separation-bottom">
-
-            <div id="map" style="width: 1000px; height: 750px;"></div>
-
+            <div id="map" style="width: 1200px; height: 900px;"></div>
         </div>
         <div hidden>
-            <p id="lat" th:text="${lat}"></p>
-            <p id="long" th:text="${long}"></p>
+            <p id="lat" th:text="${persona.ubicacion.latitud}"></p>
+            <p id="long" th:text="${persona.ubicacion.longitud}"></p>
         </div>
         <script type="text/javascript">
             window.onload = function() {

@@ -3,6 +3,8 @@ package Examen2.ClasesBase;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Usuario implements Serializable{
     /**
@@ -15,6 +17,7 @@ public class Usuario implements Serializable{
     private String nombre;
     private String contra;
     private String rol;
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "usuario") 
     private List<Persona> personasCreadas;
     private boolean active;
