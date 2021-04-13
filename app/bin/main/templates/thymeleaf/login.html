@@ -16,6 +16,20 @@
                 <h2>Ingreso de sesión</h2>
             </div>
         </div>
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/JS/workers.js', {
+                        scope: '/'
+                    }).then(function(registration) {
+                        // Notificando el registro del service workwe
+                        console.log('Registrando el servicio en el ambiente: ', registration.scope);
+                    }, function(err) {
+                        console.log('Service Worker falló el registro: ', err);
+                    });
+                });
+            }
+        </script>
         <div class="form-row separation-top separation-bottom">
             <div class="col align-self-center ">
                 <form method=post action="/public/login/" id="login" class="form">
