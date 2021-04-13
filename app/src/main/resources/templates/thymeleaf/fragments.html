@@ -29,6 +29,9 @@
                     <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link only-online">Cerrar Sesión</a>
                 </div>
             </div>
+            <!-- <form method=post action="/app/synchronize/" id="synchro" class="form">
+                <div id=data hidden></div>
+            </form> -->
             <script>
                 var onlineElements = document.getElementsByClassName("only-online");
                 var i;
@@ -67,10 +70,15 @@
                         data.push(myStorage.getItem(index.toString()));
                     }
 
-                    const Http = new XMLHttpRequest();
+                    // document.getElementById("data").value = JSON.stringify(data);
+                    $.post("/app/synchronize/", {
+                        'data': data //Lo que mando en el post es un arreglo llamado data.
+                    });
+                    /*const Http = new XMLHttpRequest();
                     const url = 'registro.drakath.studio/app/synchronize/';
                     Http.open("POST", url);
-                    Http.send(data);
+                    Http.send(data);*/
+
                 }
             </script>
 
