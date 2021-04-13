@@ -1,3 +1,9 @@
+.disable-me {
+    pointer-events: none;
+    cursor: default;
+    color: red;
+}
+
 .separation-top {
     margin-top: 2.5%;
 }
@@ -149,10 +155,4 @@ td>a:hover {
 #map {
     height: 400px;
     width: 100%;
-}
-
-.disable-me {
-    pointer-events: none;
-    cursor: default;
-    color: red;
 }
