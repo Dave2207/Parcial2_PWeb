@@ -29,15 +29,16 @@
                 </div>
             </div>
             <script>
+                alert(navigator.onLine)
                 if (!navigator.onLine) {
                     var onlineElements = document.getElementsByClassName("only-online");
+                    alert(onlineElements)
+                    alert(onlineElements.length)
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
                         onlineElements[i].classList.add('disable-me');
                     }
                 }
-                var element = document.getElementById("myDIV");
-                element.classList.add("mystyle");
             </script>
         </nav>
     </div>
