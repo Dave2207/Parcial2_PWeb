@@ -29,14 +29,6 @@
                 </div>
             </div>
             <script>
-                console.log(navigator.onLine)
-                if (!navigator.onLine) {
-                    var onlineElements = document.getElementsByClassName("only-online");
-                    var i;
-                    for (i = 0; i < onlineElements.length; i++) {
-                        onlineElements[i].classList.add('disable-me');
-                    }
-                }
                 if ('serviceWorker' in navigator) {
                     window.addEventListener('load', function() {
                         navigator.serviceWorker.register('/JS/workers.js', {
@@ -48,6 +40,14 @@
                             console.log('Service Worker falló el registro: ', err);
                         });
                     });
+                }
+                console.log(navigator.onLine)
+                if (!navigator.onLine) {
+                    var onlineElements = document.getElementsByClassName("only-online");
+                    var i;
+                    for (i = 0; i < onlineElements.length; i++) {
+                        onlineElements[i].classList.add('disable-me');
+                    }
                 }
             </script>
         </nav>
