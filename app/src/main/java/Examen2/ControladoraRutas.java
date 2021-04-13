@@ -39,7 +39,12 @@ public class ControladoraRutas {
             
             path("/app", () -> {
                 post("/synchronize/",ctx -> {
+                    System.out.println("Hola");
                     System.out.println(ctx.body());
+                    System.out.println(ctx.url());
+                    
+                    System.out.println(ctx.attributeMap());
+                    
                 });
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
                     
