@@ -13,7 +13,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/JS/serviceworkers.js', {
+                navigator.serviceWorker.register('/JS/workers.js', {
                     scope: '/'
                 }).then(function(registration) {
                     // Notificando el registro del service workwe
