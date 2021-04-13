@@ -13,6 +13,8 @@ var urlsToCache = [
     '/thymeleaf/mapa.html',
     '/thymeleaf/registrarPersona.html',
     '/thymeleaf/registrarUsuario.html',
+    '/app/usuarios/regist',
+    '/app/personas/regist',
     //'./templates/thymeleaf/registrarPersona.html',
     /*'/js/axios.min.js',
     '/js/jquery-3.2.1.min.js',
