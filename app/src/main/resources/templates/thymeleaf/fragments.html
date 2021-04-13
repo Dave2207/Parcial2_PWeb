@@ -32,12 +32,24 @@
                 alert(navigator.onLine)
                 if (!navigator.onLine) {
                     var onlineElements = document.getElementsByClassName("only-online");
-                    alert(onlineElements)
-                    alert(onlineElements.length)
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
                         onlineElements[i].classList.add('disable-me');
                     }
+                }
+            </script>
+            <script>
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', function() {
+                        navigator.serviceWorker.register('/JS/workers.js', {
+                            scope: '/'
+                        }).then(function(registration) {
+                            // Notificando el registro del service workwe
+                            console.log('Registrando el servicio en el ambiente: ', registration.scope);
+                        }, function(err) {
+                            console.log('Service Worker falló el registro: ', err);
+                        });
+                    });
                 }
             </script>
         </nav>
