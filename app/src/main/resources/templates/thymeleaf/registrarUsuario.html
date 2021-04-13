@@ -93,11 +93,11 @@
                 var buttonOnline = document.getElementById("online");
                 var buttonOffline = document.getElementById("offline");
                 if (!navigator.onLine) {
-                    buttonOnline.hidden = true;
-                    buttonOffline.hidden = true;
+                    buttonOffline.style.visibility = 'hidden';
+                    buttonOnline.style.visibility = 'visible';
                 } else {
-                    buttonOnline.hidden = false;
-                    buttonOffline.hidden = false;
+                    buttonOnline.style.visibility = 'hidden';
+                    buttonOffline.style.visibility = 'visible';
                 }
             </script>
         </div>
