@@ -5,7 +5,7 @@ var urlsToCache = [
     '/CSS/Estilos.css',
     /*'/templates/thymeleaf/error.html',*/
     //'./templates/thymeleaf/fragments.html',
-    //'./templates/thymeleaf/registrarUsuario.html',
+    '/thymeleaf/registrarUsuario.html',
     //'./templates/thymeleaf/registrarPersona.html',
     /*'/js/axios.min.js',
     '/js/jquery-3.2.1.min.js',

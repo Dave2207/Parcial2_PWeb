@@ -15,7 +15,8 @@ public class App {
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
-            config.addStaticFiles("/publico"); // desde la carpeta de resources
+            config.addStaticFiles("/publico");
+            config.addStaticFiles("/templates"); // desde la carpeta de resources
             config.registerPlugin(new RouteOverviewPlugin("/rutas")); // aplicando plugins de las rutas
             config.enableCorsForAllOrigins();
         });
