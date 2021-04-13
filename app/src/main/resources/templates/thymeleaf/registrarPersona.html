@@ -135,12 +135,12 @@
                 var buttonOnline = document.getElementById("online");
                 var buttonOffline = document.getElementById("offline");
 
-                window.addEventListener('offline', function() {
+                window.addEventListener('online', function() {
                     buttonOffline.hidden = true;
                     buttonOnline.hidden = false;
                 });
 
-                window.addEventListener('online', function() {
+                window.addEventListener('offline', function() {
                     buttonOnline.hidden = true;
                     buttonOffline.hidden = false;
                 });
