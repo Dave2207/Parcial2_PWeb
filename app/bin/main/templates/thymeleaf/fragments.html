@@ -29,13 +29,25 @@
                 </div>
             </div>
             <script>
-                alert(navigator.onLine)
+                console.log(navigator.onLine)
                 if (!navigator.onLine) {
                     var onlineElements = document.getElementsByClassName("only-online");
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
                         onlineElements[i].classList.add('disable-me');
                     }
+                }
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', function() {
+                        navigator.serviceWorker.register('/JS/workers.js', {
+                            scope: '/'
+                        }).then(function(registration) {
+                            // Notificando el registro del service workwe
+                            console.log('Registrando el servicio en el ambiente: ', registration.scope);
+                        }, function(err) {
+                            console.log('Service Worker falló el registro: ', err);
+                        });
+                    });
                 }
             </script>
         </nav>
