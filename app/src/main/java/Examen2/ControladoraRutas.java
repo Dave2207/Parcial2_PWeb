@@ -45,6 +45,7 @@ public class ControladoraRutas {
                     
                     System.out.println(ctx.attributeMap());
                     System.out.println(ctx.formParam("data"));
+                    System.out.println(ctx.formParams("data"));
                     
                 });
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
