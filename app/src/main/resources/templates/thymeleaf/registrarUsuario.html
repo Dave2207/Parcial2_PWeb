@@ -42,7 +42,7 @@
                 alert(myStorage.getItem(index));
                 //const element = array[index];
             }
-            window.location.replace("/app/usuarios/redit");
+            //window.location.replace("/app/usuarios/redit");
         }
     </script>
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-4 offset-4 separation-top">
                         <button class="btn btn-primary " id=online type=submit form=redit>Aceptar</button>
-                        <button class="btn btn-warning" id=offline onClick=storage() type=submit>Aceptar (Offline)</button>
+                        <button class="btn btn-warning" id=offline onClick="storage()">Aceptar (Offline)</button>
                         <a class="btn btn-secondary" href="/app/personas/regist">Cancelar</a>
                     </div>
                 </form>
