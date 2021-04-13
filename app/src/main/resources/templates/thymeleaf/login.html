@@ -9,7 +9,6 @@
 </head>
 
 <body class="p-3 mb-2 bg-dark text-white">
-    <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -24,6 +23,7 @@
             });
         }
     </script>
+    <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <div class="container-fluid">
         <div class="row separation-top">
             <div class="col align-self-center ">
