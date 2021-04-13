@@ -25,7 +25,6 @@ public class App {
         if(UsuarioServices.getInstance().find(1) == null){
             UsuarioServices.getInstance().create(new Usuario("admin","admin","Administrador"));
         }
-        app.get("/", ctx -> ctx.redirect("/"));
         app.after(ctx -> {
             //System.out.println("Enviando el header de seguridad para el Service Worker");
             ctx.header("Service-Worker-Allowed", "/");
