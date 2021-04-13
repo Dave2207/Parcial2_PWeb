@@ -16,20 +16,6 @@
 <body class="p-3 mb-2 bg-dark text-white">
     <div class="container-fluid">
         <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <script>
-                if ('serviceWorker' in navigator) {
-                    window.addEventListener('load', function() {
-                        navigator.serviceWorker.register('/JS/workers.js', {
-                            scope: '/'
-                        }).then(function(registration) {
-                            // Notificando el registro del service workwe
-                            console.log('Registrando el servicio en el ambiente: ', registration.scope);
-                        }, function(err) {
-                            console.log('Service Worker falló el registro: ', err);
-                        });
-                    });
-                }
-            </script>
             <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
