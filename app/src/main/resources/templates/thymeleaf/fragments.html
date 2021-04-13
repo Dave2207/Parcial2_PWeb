@@ -25,24 +25,44 @@
                     <a href='/app/usuarios/regist' class="nav-item nav-link big ">Registrar Usuario</a>
                     <a href='/app/personas/list' class="nav-item nav-link big only-online bg-red">Lista de Personas</a>
                     <a href='/app/usuarios/list' class="nav-item nav-link big only-online">Lista de Usuarios</a>
-                    <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link">Cerrar Sesión</a>
+                    <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link only-online">Cerrar Sesión</a>
                 </div>
             </div>
             <script>
-                console.log(navigator.onLine)
-                if (!navigator.onLine) {
+                window.addEventListener('offline', function() {
+                    //console.log('offline');
                     var onlineElements = document.getElementsByClassName("only-online");
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
-                        onlineElements[i].classList.add('disable-me');
+                        //onlineElements[i].classList.add('disable-me');
+                        onlineElements[i].hidden = true;
+                    }
+                });
+
+                window.addEventListener('online', function(e) {
+                    //console.log('online');
+                    var onlineElements = document.getElementsByClassName("only-online");
+                    var i;
+                    for (i = 0; i < onlineElements.length; i++) {
+                        //onlineElements[i].classList.remove('disable-me');
+                        onlineElements[i].hidden = false;
+                    }
+                });
+                /*if (!navigator.onLine) {
+                    var onlineElements = document.getElementsByClassName("only-online");
+                    var i;
+                    for (i = 0; i < onlineElements.length; i++) {
+                        //onlineElements[i].classList.add('disable-me');
+                        onlineElements[i].hidden = true;
                     }
                 } else {
                     var onlineElements = document.getElementsByClassName("disable-me");
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
-                        onlineElements[i].classList.remove('disable-me');
+                        //onlineElements[i].classList.remove('disable-me');
+                        onlineElements[i].hidden = false;
                     }
-                }
+                }*/
             </script>
         </nav>
     </div>
