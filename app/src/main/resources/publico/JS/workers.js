@@ -17,11 +17,6 @@ var urlsToCache = [
     'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js',
     'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css',
-    //'./templates/thymeleaf/registrarPersona.html',
-    /*'/js/axios.min.js',
-    '/js/jquery-3.2.1.min.js',
-    '/html5/ejemploIndexedDb.html',
-    '/html5/offline.html'*/
 ];
 //ruta para fallback.
 var fallback = "/templates/thymeleaf/registrarPersona.html"
@@ -34,7 +29,7 @@ self.addEventListener('install', function(event) {
         caches.open(CACHE_NAME) //Utilizando el api Cache definido en la variable.
         .then(function(cache) {
             console.log('Cache abierto');
-            return cache.addAll(urlsToCache); //agregando todos los elementos del cache.
+            return cache.addAll(urlsToCache); //agregando todos los elementos del cache.    
         })
     );
 });

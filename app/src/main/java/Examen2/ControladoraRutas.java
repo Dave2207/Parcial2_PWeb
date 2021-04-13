@@ -34,7 +34,6 @@ public class ControladoraRutas {
                 ws.onMessage(ctx -> System.out.println("Enviaron un mensaje"));
             });*/
             get("/", ctx -> {//localhost:7000/ redirige al formulario de personas, que es donde está todo
-
                 ctx.redirect("/app/personas/regist");
             });
             path("/app", () -> {
@@ -109,8 +108,6 @@ public class ControladoraRutas {
                         modelo.put("long", aux.getUbicacion().getLongitud());
                         modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/mapa.html",modelo);
-                        
-
                     });
                     post("/redit",ctx -> {//POST donde se procesan los datos que se obtienen, tanto para registrar como para editar
                         String nombre = ctx.formParam("nombre");
