@@ -3,8 +3,6 @@ var CACHE_NAME = 'mi-app-cache-v1';
 //listado de
 var urlsToCache = [
     '/CSS/Estilos.css',
-    /*'/templates/thymeleaf/error.html',*/
-    //'./templates/thymeleaf/fragments.html',
     '/thymeleaf/error.html',
     '/thymeleaf/fragments.html',
     '/thymeleaf/listaPersonas.html',

@@ -11,6 +11,20 @@
 
 <body class="p-3 mb-2 bg-dark text-white">
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/JS/workers.js', {
+                    scope: '/'
+                }).then(function(registration) {
+                    // Notificando el registro del service workwe
+                    console.log('Registrando el servicio en el ambiente: ', registration.scope);
+                }, function(err) {
+                    console.log('Service Worker falló el registro: ', err);
+                });
+            });
+        }
+    </script>
     <script type="text/javascript">
         var options = {
             enableHighAccuracy: true,
