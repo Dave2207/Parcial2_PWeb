@@ -32,7 +32,8 @@
                 if (formElements[i].type != "submit") //we dont want to include the submit-buttom
                     postData[formElements[i].name] = formElements[i].value;
 
-            var JSON = postData.stringify()
+            var JSON = postData.stringify();
+            alert(JSON)
 
             myStorage = window.localStorage;
             myStorage.setItem(myStorage.length.toString(), JSON);
