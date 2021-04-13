@@ -30,6 +30,12 @@
                 </div>
             </div>
             <script>
+                var onlineElements = document.getElementsByClassName("only-online");
+                var i;
+                for (i = 0; i < onlineElements.length; i++) {
+                    onlineElements[i].hidden = !navigator.onLine;
+                }
+
                 window.addEventListener('offline', function() {
                     var onlineElements = document.getElementsByClassName("only-online");
                     var i;

@@ -135,6 +135,9 @@
                 var buttonOnline = document.getElementById("online");
                 var buttonOffline = document.getElementById("offline");
 
+                buttonOnline.hidden = !navigator.onLine;
+                buttonOffline.hidden = navigator.onLine;
+
                 window.addEventListener('online', function() {
                     buttonOffline.hidden = true;
                     buttonOnline.hidden = false;
