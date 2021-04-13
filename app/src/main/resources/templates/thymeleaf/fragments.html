@@ -35,7 +35,9 @@
                 for (i = 0; i < onlineElements.length; i++) {
                     onlineElements[i].hidden = !navigator.onLine;
                 }
-
+                if (window.localStorage.length == 0) {
+                    document.getElementById("synchron").hidden = !navigator.onLine;
+                }
                 window.addEventListener('offline', function() {
                     var onlineElements = document.getElementsByClassName("only-online");
                     var i;
@@ -52,9 +54,7 @@
                         //onlineElements[i].classList.remove('disable-me');
                         onlineElements[i].hidden = false;
                     }
-                    if (window.localStorage.length == 0) {
-                        document.getElementById("synchron").hidden = true;
-                    }
+
                 });
 
                 function sync() {

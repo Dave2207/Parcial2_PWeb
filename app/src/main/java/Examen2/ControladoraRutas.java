@@ -36,10 +36,11 @@ public class ControladoraRutas {
             get("/", ctx -> {//localhost:7000/ redirige al formulario de personas, que es donde está todo
                 ctx.redirect("/app/personas/regist");
             });
-            post("/synchronize/",ctx -> {
-                System.out.println(ctx.body());
-            });
+            
             path("/app", () -> {
+                post("/synchronize/",ctx -> {
+                    System.out.println(ctx.body());
+                });
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
                     
                     try{
