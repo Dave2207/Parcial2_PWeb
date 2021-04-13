@@ -44,6 +44,26 @@
 
         navigator.geolocation.getCurrentPosition(success, error, options);
     </script>
+    <script>
+        function storage() {
+            var formElements = document.getElementById("reg").elements;
+            var postData = {};
+            for (var i = 0; i < formElements.length; i++) {
+                if (formElements[i].type != "submit" && formElements[i].name != null) {
+                    postData[formElements[i].name] = formElements[i].value;
+                    formElements[i].value = "";
+                }
+            }
+            myStorage = window.localStorage;
+
+            //var myJSON = JSON.stringify(postData);
+            //myStorage.setItem(myStorage.length.toString(), myJSON);
+
+            myStorage.setItem(myStorage.length.toString(), postData);
+
+            location.reload();
+        }
+    </script>
     <div class="container-fluid">
         <div class="row separation-top">
             <div class="col align-self-center ">
@@ -105,11 +125,26 @@
                         </div>
                     </div>
                     <div class="col-4 offset-4 separation-top">
-                        <button class="btn btn-primary " type=submit form=reg>Aceptar</button>
+                        <button class="btn btn-primary " id=online type=submit form=reg>Aceptar</button>
+                        <a class="btn btn-warning" id=offline onclick="storage()">Aceptar (Offline)</button>
                         <a class="btn btn-secondary " href="/">Cancelar</a>
                     </div>
                 </form>
             </div>
+            <script>
+                var buttonOnline = document.getElementById("online");
+                var buttonOffline = document.getElementById("offline");
+
+                window.addEventListener('offline', function() {
+                    buttonOffline.hidden = true;
+                    buttonOnline.hidden = false;
+                });
+
+                window.addEventListener('online', function() {
+                    buttonOnline.hidden = true;
+                    buttonOffline.hidden = false;
+                });
+            </script>
         </div>
     </div>
 </body>

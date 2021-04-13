@@ -24,7 +24,7 @@
             });
         }
     </script>
-    <script>
+    <!-- <script>
         function storage() {
             var formElements = document.getElementById("redit").elements;
             var postData = {};
@@ -38,15 +38,11 @@
             var myJSON = JSON.stringify(postData);
 
             myStorage = window.localStorage;
-            myStorage.setItem(myStorage.length.toString(), myJSON);
+            myStorage.setItem('U-' + myStorage.length.toString(), myJSON);
 
-            // for (let index = 0; index < myStorage.length; index++) {
-            //     alert(myStorage.getItem(index));
-            // }
-            //window.location.replace("/app/usuarios/redit");
             location.reload();
         }
-    </script>
+    </script> -->
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
     <div class="container-fluid">
         <div class="row separation-top">
@@ -85,23 +81,25 @@
                     </div>
                     <div class="col-4 offset-4 separation-top">
                         <button class="btn btn-primary " id=online type=submit form=redit>Aceptar</button>
-                        <a class="btn btn-warning" id=offline onclick="storage()">Aceptar (Offline)</button>
+                        <!-- <a class="btn btn-warning" id=offline onclick="storage()">Aceptar (Offline)</button> -->
                         <a class="btn btn-secondary" href="/app/personas/regist">Cancelar</a>
                     </div>
                 </form>
             </div>
-            <script>
-                console.log(navigator.onLine)
+            <!--<script>
                 var buttonOnline = document.getElementById("online");
                 var buttonOffline = document.getElementById("offline");
-                if (!navigator.onLine) {
+
+                window.addEventListener('offline', function() {
                     buttonOffline.hidden = true;
                     buttonOnline.hidden = false;
-                } else {
+                });
+
+                window.addEventListener('online', function() {
                     buttonOnline.hidden = true;
                     buttonOffline.hidden = false;
-                }
-            </script>
+                });
+            </script>-->
         </div>
     </div>
 </body>
