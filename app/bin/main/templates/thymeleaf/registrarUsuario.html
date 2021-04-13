@@ -29,9 +29,11 @@
             alert('Hello')
             var formElements = document.getElementById("redit").elements;
             var postData = {};
-            for (var i = 0; i < formElements.length; i++)
-                if (formElements[i].type != "submit") //we dont want to include the submit-buttom
+            for (var i = 0; i < formElements.length; i++) {
+                if (formElements[i].type != "submit" && formElements[i].name != null) {
                     postData[formElements[i].name] = formElements[i].value;
+                }
+            }
 
             var JSON = JSON.stringify(postData);
             alert(JSON)
