@@ -2,11 +2,11 @@
 var CACHE_NAME = 'mi-app-cache-v1';
 //listado de
 var urlsToCache = [
-    '../CSS/Estilos.css',
+    './CSS/Estilos.css',
     /*'/templates/thymeleaf/error.html',*/
-    '../templates/thymeleaf/fragments.html',
-    '../templates/thymeleaf/registrarUsuario.html',
-    '../templates/thymeleaf/registrarPersona.html',
+    './templates/thymeleaf/fragments.html',
+    './templates/thymeleaf/registrarUsuario.html',
+    './templates/thymeleaf/registrarPersona.html',
     /*'/js/axios.min.js',
     '/js/jquery-3.2.1.min.js',
     '/html5/ejemploIndexedDb.html',
