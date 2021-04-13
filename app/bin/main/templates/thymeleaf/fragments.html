@@ -36,6 +36,12 @@
                     for (i = 0; i < onlineElements.length; i++) {
                         onlineElements[i].classList.add('disable-me');
                     }
+                } else {
+                    var onlineElements = document.getElementsByClassName("disable-me");
+                    var i;
+                    for (i = 0; i < onlineElements.length; i++) {
+                        onlineElements[i].classList.remove('disable-me');
+                    }
                 }
             </script>
         </nav>

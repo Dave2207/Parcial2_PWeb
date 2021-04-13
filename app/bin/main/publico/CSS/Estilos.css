@@ -154,4 +154,5 @@ td>a:hover {
 .disable-me {
     pointer-events: none;
     cursor: default;
+    color: red;
 }
