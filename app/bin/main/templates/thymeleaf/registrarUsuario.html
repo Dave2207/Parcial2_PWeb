@@ -26,18 +26,23 @@
     </script>
     <script>
         function storage() {
-            console.log("funka")
-        }
-        var buttonOnline = document.getElementById("online");
-        var buttonOffline = document.getElementById("offline");
-        var form = document.getElementById("redit");
-        if (!navigator.onLine) {
-            buttonOnline.hidden = false;
-            buttonOffline.hidden = true;
-            //form.action = ;
-        } else {
-            buttonOnline.hidden = true;
-            buttonOffline.hidden = false;
+            var formElements = document.getElementById("redit").elements;
+            var postData = {};
+            for (var i = 0; i < formElements.length; i++)
+                if (formElements[i].type != "submit") //we dont want to include the submit-buttom
+                    postData[formElements[i].name] = formElements[i].value;
+
+            var JSON = postData.stringify()
+
+            myStorage = window.localStorage;
+            myStorage.setItem(myStorage.length.toString(), JSON);
+
+            for (let index = 0; index < myStorage.length; index++) {
+                alert(myStorage.getItem(index));
+                //const element = array[index];
+
+            }
+            alert()
         }
     </script>
     <div th:replace="/templates/thymeleaf/fragments.html :: navbar"></div>
@@ -83,6 +88,17 @@
                     </div>
                 </form>
             </div>
+            <script>
+                var buttonOnline = document.getElementById("online");
+                var buttonOffline = document.getElementById("offline");
+                if (!navigator.onLine) {
+                    buttonOnline.hidden = false;
+                    buttonOffline.hidden = true;
+                } else {
+                    buttonOnline.hidden = true;
+                    buttonOffline.hidden = false;
+                }
+            </script>
         </div>
     </div>
 </body>
