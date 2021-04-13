@@ -92,10 +92,10 @@
                 var buttonOnline = document.getElementById("online");
                 var buttonOffline = document.getElementById("offline");
                 if (!navigator.onLine) {
-                    buttonOnline.hidden = false;
+                    buttonOnline.hidden = true;
                     buttonOffline.hidden = true;
                 } else {
-                    buttonOnline.hidden = true;
+                    buttonOnline.hidden = false;
                     buttonOffline.hidden = false;
                 }
             </script>
