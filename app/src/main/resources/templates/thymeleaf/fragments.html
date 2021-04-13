@@ -16,18 +16,6 @@
 <body class="p-3 mb-2 bg-dark text-white">
     <div class="container-fluid">
         <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a href='/app/personas/regist' class="nav-item nav-link big">Registrar Persona</a>
-                    <a href='/app/usuarios/regist' class="nav-item nav-link big ">Registrar Usuario</a>
-                    <a href='/app/personas/list' class="nav-item nav-link big only-online">Lista de Personas</a>
-                    <a href='/app/usuarios/list' class="nav-item nav-link big only-online">Lista de Usuarios</a>
-                    <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link">Cerrar Sesión</a>
-                </div>
-            </div>
             <script>
                 if ('serviceWorker' in navigator) {
                     window.addEventListener('load', function() {
@@ -41,6 +29,20 @@
                         });
                     });
                 }
+            </script>
+            <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a href='/app/personas/regist' class="nav-item nav-link big">Registrar Persona</a>
+                    <a href='/app/usuarios/regist' class="nav-item nav-link big ">Registrar Usuario</a>
+                    <a href='/app/personas/list' class="nav-item nav-link big only-online">Lista de Personas</a>
+                    <a href='/app/usuarios/list' class="nav-item nav-link big only-online">Lista de Usuarios</a>
+                    <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link">Cerrar Sesión</a>
+                </div>
+            </div>
+            <script>
                 console.log(navigator.onLine)
                 if (!navigator.onLine) {
                     var onlineElements = document.getElementsByClassName("only-online");
