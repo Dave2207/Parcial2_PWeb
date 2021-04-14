@@ -5,7 +5,10 @@ import io.javalin.plugin.rendering.JavalinRenderer;
 import io.javalin.plugin.rendering.template.JavalinThymeleaf;
 import static io.javalin.apibuilder.ApiBuilder.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import Examen2.ClasesBase.Persona;
 import Examen2.ClasesBase.UbicacionGeo;
@@ -38,10 +41,23 @@ public class ControladoraRutas {
             });
             
             path("/app", () -> {
-                ws("/synchronize", ws -> {
+                ws("/synchronize/", ws -> {
                     ws.onConnect(ctx -> System.out.println("Connected"));
                     ws.onMessage(WsMessageContext -> {
-                        System.out.println(WsMessageContext.message());
+                        List<String> JSONData = Arrays.asList(WsMessageContext.message().replace("},{", "}\n{").split("\n"));
+                        //JSONData.set(0,JSONData.get(0)+"}");
+                        //int i = -1;
+                        for (String data :JSONData){
+                            ObjectMapper mapper = new ObjectMapper();
+                            HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
+                            Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"));
+                            UbicacionGeo ubicacion = newPer.getUbicacion();
+                            ubicacionServices.create(ubicacion);
+                            personaServices.create(newPer);
+                        }
+
+                        //String nombre, String sector, String nivelEscolar, String latitud, String longitud, Usuario usuario
+                       
                     });
                 });
                 /*post("/synchronize/",ctx -> {
@@ -169,7 +185,6 @@ public class ControladoraRutas {
                             modelo.put("user", usr);
                             modelo.put("users", usuarioServices.findAll());
                             
-
                             // //prueba
                             // ObjectMapper mapper = new ObjectMapper();
                             // String JSON = mapper.writeValueAsString(usr);

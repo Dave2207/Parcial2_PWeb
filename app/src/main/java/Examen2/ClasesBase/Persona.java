@@ -23,6 +23,13 @@ public class Persona implements Serializable{
         this.ubicacion = new UbicacionGeo(latitud, longitud);
         this.usuario = usuario;
     }
+    public Persona(Persona aux, Usuario usuario) {
+        this.nombre = aux.getNombre();
+        this.sector = aux.getSector();
+        this.nivelEscolar = aux.getNivelEscolar();
+        this.ubicacion = new UbicacionGeo(aux.getUbicacion().getLatitud(), aux.getUbicacion().getLongitud());
+        this.usuario = usuario;
+    }
     
     public Persona(){ 
     }
