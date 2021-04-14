@@ -61,7 +61,7 @@
                 });
 
                 function sync() {
-                    alert('Funka')
+                    //alert('Funka')
                     let data = [];
                     myStorage = window.localStorage;
 
@@ -70,10 +70,24 @@
                         data.push(myStorage.getItem(index.toString()));
                     }
 
-                    // document.getElementById("data").value = JSON.stringify(data);
-                    $.post("/app/synchronize/", {
-                        'data': data //Lo que mando en el post es un arreglo llamado data.
+                    // Create WebSocket connection.
+                    const socket = new WebSocket('ws://localhost:7000/app/synchronize/');
+
+                    // Connection opened
+                    socket.addEventListener('open', function(event) {
+                        socket.send(data);
                     });
+
+                    socket.addEventListener('message', function(event) {
+                        console.log('Message from server ', event.data);
+                    });
+
+
+
+                    // document.getElementById("data").value = JSON.stringify(data);
+                    // $.post("/app/synchronize/", {
+                    //     'data': data //Lo que mando en el post es un arreglo llamado data.
+                    // });
                     /*const Http = new XMLHttpRequest();
                     const url = 'registro.drakath.studio/app/synchronize/';
                     Http.open("POST", url);

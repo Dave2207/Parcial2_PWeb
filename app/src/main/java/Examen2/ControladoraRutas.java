@@ -38,7 +38,13 @@ public class ControladoraRutas {
             });
             
             path("/app", () -> {
-                post("/synchronize/",ctx -> {
+                ws("/synchronize", ws -> {
+                    ws.onConnect(ctx -> System.out.println("Connected"));
+                    ws.onMessage(WsMessageContext -> {
+                        System.out.println(WsMessageContext.message());
+                    });
+                });
+                /*post("/synchronize/",ctx -> {
                     System.out.println("Hola");
                     System.out.println(ctx.body());
                     System.out.println(ctx.url());
@@ -47,7 +53,7 @@ public class ControladoraRutas {
                     System.out.println(ctx.formParam("data"));
                     System.out.println(ctx.formParams("data"));
                     
-                });
+                });*/
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
                     
                     try{
