@@ -257,6 +257,30 @@ public class ControladoraRutas {
                     });
                 });
             });
+
+            path("/REST", () -> {
+                after(ctx -> {
+                    ctx.header("Content-Type", "application/json");
+                });
+
+                get("/", ctx ->{
+                    //Listar persona
+                });
+
+                get("/:id", ctx -> {
+                    //Listar una persona
+                });
+
+                post("/", ctx -> {
+                    //Crear persona
+                });
+
+                delete("/:id", ctx -> {
+                    //Borrar persona
+                });
+            });
+
+
             get("/public/login", ctx -> {
                 if(ctx.sessionAttribute("user")==null){
                     HashMap<String, Object> modelo = new HashMap<>();
