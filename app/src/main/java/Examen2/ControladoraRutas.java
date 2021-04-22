@@ -264,19 +264,30 @@ public class ControladoraRutas {
                 });
 
                 get("/", ctx ->{
-                    //Listar persona
+                    //Listar personas
+                    ctx.json(personaServices.findAll());
                 });
 
                 get("/:id", ctx -> {
                     //Listar una persona
+                    int id = Integer.valueOf(ctx.pathParam("id"));
+                    ctx.json(personaServices.find(id));
                 });
 
                 post("/", ctx -> {
                     //Crear persona
+                    ObjectMapper mapper = new ObjectMapper();
+                    HashMap<String,String> aux = mapper.readValue(ctx.body(), HashMap.class);
+                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1));
+                    UbicacionGeo ubicacion = newPer.getUbicacion();
+                    ubicacionServices.create(ubicacion);
+                    personaServices.create(newPer);
                 });
 
                 delete("/:id", ctx -> {
                     //Borrar persona
+                    int id = Integer.valueOf(ctx.pathParam("id"));
+                    ctx.json(personaServices.delete(id));
                 });
             });
 
