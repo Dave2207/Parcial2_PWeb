@@ -124,11 +124,61 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-4 offset-4">
+                        <label for="nombre" class=big>Foto</label>
+                    </div>
+                    <div class="col-4 offset-4">
+                        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+                        <div id=cam hidden>
+                            <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                            <canvas id="canvas" class="d-none"></canvas>
+                            <audio id="snapSound" src="audio/snap.wav" preload="auto"></audio>
+                        </div>
+                        <div id=picture-div hidden>
+                            <img id="picture">
+                        </div>
+                        <script>
+                            function startCam() {
+                                const webcamElement = document.getElementById('webcam');
+                                const canvasElement = document.getElementById('canvas');
+                                const snapSoundElement = document.getElementById('snapSound');
+
+                                const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+                                if (document.getElementById("start").hidden) {
+                                    var picture = webcam.snap();
+                                    webcam.stop()
+                                    document.getElementById("picture").src = picture;
+                                    document.getElementById("picture-div").hidden = false;
+                                    document.getElementById("cam").hidden = true;
+                                    document.getElementById("pic").hidden = true;
+                                    document.getElementById("start").hidden = false;
+                                } else {
+                                    webcam.start()
+                                        .then(result => {
+                                            console.log("webcam started");
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        });
+                                    document.getElementById("picture").src = "";
+                                    document.getElementById("picture-div").hidden = true;
+                                    document.getElementById("cam").hidden = false;
+                                    document.getElementById("pic").hidden = false;
+                                    document.getElementById("start").hidden = true;
+                                }
+                            }
+                        </script>
+                    </div>
+
                     <div class="col-4 offset-4 separation-top">
                         <button class="btn btn-primary " id=online type=submit form=reg hidden>Aceptar</button>
                         <a class="btn btn-warning" id=offline onclick="storage()" hidden>Aceptar (Offline)</a>
                         <a class="btn btn-secondary " href="/app/personas/regist">Limpiar</a>
+                        <a class="btn btn-success" id=start onclick=startCam()>Iniciar Cámara</a>
+                        <a class="btn btn-info" id=pic onclick=startCam() hidden>Tomar foto</a>
                     </div>
+
                 </form>
             </div>
             <script>
