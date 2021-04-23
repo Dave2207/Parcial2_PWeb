@@ -148,7 +148,7 @@ public class ControladoraRutas {
                         String nivelEscolar = ctx.formParam("nivelEscolar");
                         String latitud = ctx.formParam("lat");
                         String longitud = ctx.formParam("long");
-                        
+                        //Object pic = ctx.formParam("picture");
                         try {
                             int id = Integer.valueOf(ctx.formParam("id"));
                             UbicacionGeo ubi = ubicacionServices.find(id);
