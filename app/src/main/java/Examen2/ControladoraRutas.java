@@ -58,7 +58,9 @@ public class ControladoraRutas {
                             System.out.println(newPer.toString());
 
                             UbicacionGeo ubicacion = newPer.getUbicacion();
+                            Foto foto = newPer.getFoto();
                             ubicacionServices.create(ubicacion);
+                            fotoServices.create(foto);
                             personaServices.create(newPer);
                         }
 
