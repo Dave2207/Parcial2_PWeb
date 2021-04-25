@@ -76,8 +76,8 @@
                     const socket = new WebSocket('ws://registro.drakath.studio/app/synchronize/');
 
                     // Connection opened
+                    alert(data)
                     socket.addEventListener('open', function(event) {
-                        alert(data)
                         socket.send(data);
 
                     });
