@@ -78,7 +78,7 @@ public class Persona implements Serializable{
     }
     
     public String toString() {
-        return this.nombre+"  "+this.sector+"  "+this.nivelEscolar+"  "+this.usuario.getNombre();
+        return this.nombre+"  "+this.sector+"  "+this.nivelEscolar+"  "+this.usuario.getNombre()+" "+this.foto.getBase64();
     }
     public Foto getFoto() {
         return foto;
