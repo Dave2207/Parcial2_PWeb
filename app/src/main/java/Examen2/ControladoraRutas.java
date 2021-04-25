@@ -54,7 +54,7 @@ public class ControladoraRutas {
                         for (String data :JSONData){
                             ObjectMapper mapper = new ObjectMapper();
                             HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
-                            Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto());
+                            Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto("image/png",aux.get("picture-in")));
                             UbicacionGeo ubicacion = newPer.getUbicacion();
                             ubicacionServices.create(ubicacion);
                             personaServices.create(newPer);
@@ -278,8 +278,10 @@ public class ControladoraRutas {
                     //Crear persona
                     ObjectMapper mapper = new ObjectMapper();
                     HashMap<String,String> aux = mapper.readValue(ctx.body(), HashMap.class);
-                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1), new Foto());
+                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1), new Foto("image/png", aux.get("base64")));
                     UbicacionGeo ubicacion = newPer.getUbicacion();
+                    Foto foto = newPer.getFoto();
+                    fotoServices.create(foto);
                     ubicacionServices.create(ubicacion);
                     personaServices.create(newPer);
                 });
