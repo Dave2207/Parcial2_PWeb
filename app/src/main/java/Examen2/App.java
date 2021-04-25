@@ -19,12 +19,6 @@ public class App {
             config.addStaticFiles("/templates"); // desde la carpeta de resources
             config.registerPlugin(new RouteOverviewPlugin("/rutas")); // aplicando plugins de las rutas
             config.enableCorsForAllOrigins();
-            // config.wsFactoryConfig(wsF -> {
-            //     wsF.getPolicy().setMaxBinaryMessageBufferSize(100000);
-            //     wsF.getPolicy().setMaxBinaryMessageSize(100000);
-            //     wsF.getPolicy().setMaxTextMessageBufferSize(100000);
-            //     wsF.getPolicy().setMaxTextMessageSize(100000);
-            // });
         });
         new ControladoraRutas(app).aplicarRutas();
 
