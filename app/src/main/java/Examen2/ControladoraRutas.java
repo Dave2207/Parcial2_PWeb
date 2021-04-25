@@ -55,7 +55,8 @@ public class ControladoraRutas {
                             ObjectMapper mapper = new ObjectMapper();
                             HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
                             Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto("image/png",aux.get("picture-in")));
-                            
+                            System.out.println(newPre.toString());
+
                             UbicacionGeo ubicacion = newPer.getUbicacion();
                             ubicacionServices.create(ubicacion);
                             personaServices.create(newPer);
