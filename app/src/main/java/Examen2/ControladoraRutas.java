@@ -10,9 +10,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import Examen2.ClasesBase.Foto;
 import Examen2.ClasesBase.Persona;
 import Examen2.ClasesBase.UbicacionGeo;
 import Examen2.ClasesBase.Usuario;
+import Examen2.Services.FotoServices;
+import Examen2.Services.GestionDB;
 import Examen2.Services.PersonaServices;
 import Examen2.Services.UbicacionServices;
 import Examen2.Services.UsuarioServices;
@@ -23,6 +26,7 @@ public class ControladoraRutas {
     private UsuarioServices usuarioServices = UsuarioServices.getInstance();
     private PersonaServices personaServices = PersonaServices.getInstance();
     private UbicacionServices ubicacionServices = UbicacionServices.getInstance();
+    private FotoServices fotoServices = FotoServices.getInstance();
     
     public ControladoraRutas(Javalin app){
         this.app = app;
@@ -50,7 +54,7 @@ public class ControladoraRutas {
                         for (String data :JSONData){
                             ObjectMapper mapper = new ObjectMapper();
                             HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
-                            Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"));
+                            Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto());
                             UbicacionGeo ubicacion = newPer.getUbicacion();
                             ubicacionServices.create(ubicacion);
                             personaServices.create(newPer);
@@ -91,7 +95,6 @@ public class ControladoraRutas {
 
                         modelo.put("user", ctx.sessionAttribute("user"));
                         modelo.put("personas", personaServices.findAll());
-                        
                         ctx.render("/templates/thymeleaf/listaPersonas.html",modelo);
                     });
                     get("/regist",ctx -> {//formulario de creación
@@ -137,8 +140,8 @@ public class ControladoraRutas {
                         Persona aux = personaServices.find(id);
                         HashMap<String, Object> modelo = new HashMap<>();
                         modelo.put("persona", aux);
-                        modelo.put("lat", aux.getUbicacion().getLatitud());
-                        modelo.put("long", aux.getUbicacion().getLongitud());
+                        modelo.put("latitud", aux.getUbicacion().getLatitud());
+                        modelo.put("longitud", aux.getUbicacion().getLongitud());
                         modelo.put("user", ctx.sessionAttribute("user"));
                         ctx.render("/templates/thymeleaf/mapa.html",modelo);
                     });
@@ -146,13 +149,16 @@ public class ControladoraRutas {
                         String nombre = ctx.formParam("nombre");
                         String sector = ctx.formParam("sector");
                         String nivelEscolar = ctx.formParam("nivelEscolar");
-                        String latitud = ctx.formParam("lat");
-                        String longitud = ctx.formParam("long");
-                        //Object pic = ctx.formParam("picture");
+                        String latitud = ctx.formParam("latitud");
+                        String longitud = ctx.formParam("longitud");
+                        String base64 = ctx.formParam("picture-in");
+                        String mimeType = "image/png";
                         try {
                             int id = Integer.valueOf(ctx.formParam("id"));
-                            UbicacionGeo ubi = ubicacionServices.find(id);
                             Persona person = personaServices.find(id);
+                            UbicacionGeo ubi = ubicacionServices.find(person.getUbicacion().getId());
+                            Foto foto = fotoServices.find(person.getFoto().getId());
+                            foto.setBase64(base64);
                             ubi.setLatitud(latitud);
                             ubi.setLongitud(longitud);
                             ubicacionServices.update(ubi);
@@ -163,11 +169,12 @@ public class ControladoraRutas {
                             person.setUsuario(ctx.sessionAttribute("user"));
                             personaServices.update(person);
                         } catch (NumberFormatException e) {
-                            Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"));
+                            Foto auxFoto = new Foto(mimeType,base64);
+                            fotoServices.create(auxFoto);
+                            Persona person = new Persona(nombre, sector, nivelEscolar, latitud, longitud, ctx.sessionAttribute("user"), auxFoto);
                             UbicacionGeo ubicacion = person.getUbicacion();
                             ubicacionServices.create(ubicacion);
                             personaServices.create(person);
-                            //System.out.println("Se ha creado 1 persona: "+person.getNombre());
                         }
                         ctx.redirect("/app/personas/regist");
                     });
@@ -184,13 +191,6 @@ public class ControladoraRutas {
                             
                             modelo.put("user", usr);
                             modelo.put("users", usuarioServices.findAll());
-                            
-                            // //prueba
-                            // ObjectMapper mapper = new ObjectMapper();
-                            // String JSON = mapper.writeValueAsString(usr);
-                            // modelo.put("userJSON", JSON); //para pasar de objeto a JSON
-                            // modelo.put("usr", mapper.readValue(JSON, Usuario.class)); //para pasar de JSON a objeto
-                            // ///////
 
 
                             ctx.render("/templates/thymeleaf/listaUsuarios.html",modelo);
@@ -278,7 +278,7 @@ public class ControladoraRutas {
                     //Crear persona
                     ObjectMapper mapper = new ObjectMapper();
                     HashMap<String,String> aux = mapper.readValue(ctx.body(), HashMap.class);
-                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1));
+                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1), new Foto());
                     UbicacionGeo ubicacion = newPer.getUbicacion();
                     ubicacionServices.create(ubicacion);
                     personaServices.create(newPer);

@@ -16,6 +16,11 @@
                 <h2 style="white-space: nowrap;" th:text="'Ubicación de registro de '+${persona.nombre}"></h2>
             </div>
         </div>
+        <div class="rec row separation-top separation-bottom offset-3">
+            <div class="d-flex justify-content-center separation-top separation-bottom">
+                <img th:src="${persona.foto.base64}" class="card-img-top  content" alt="Foto enviada">
+            </div>
+        </div>
         <div class="d-flex justify-content-center separation-top separation-bottom">
             <div id="map" style="width: 1200px; height: 900px;"></div>
         </div>

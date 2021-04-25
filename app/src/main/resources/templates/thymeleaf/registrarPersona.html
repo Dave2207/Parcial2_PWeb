@@ -136,6 +136,7 @@
                         </div>
                         <div id=picture-div hidden>
                             <img id="picture">
+                            <input id=picture-in name=picture-in type=text hidden required/>
                         </div>
                         <script>
                             function startCam() {
@@ -149,10 +150,12 @@
                                     var picture = webcam.snap();
                                     webcam.stop()
                                     document.getElementById("picture").src = picture;
+                                    document.getElementById("picture-in").value = picture;
                                     document.getElementById("picture-div").hidden = false;
                                     document.getElementById("cam").hidden = true;
                                     document.getElementById("pic").hidden = true;
                                     document.getElementById("start").hidden = false;
+
                                 } else {
                                     webcam.start()
                                         .then(result => {

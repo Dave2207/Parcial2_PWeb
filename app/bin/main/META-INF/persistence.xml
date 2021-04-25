@@ -8,6 +8,8 @@
         <class>Examen2.ClasesBase.Persona</class>
         <class>Examen2.ClasesBase.UbicacionGeo</class>
         <class>Examen2.ClasesBase.Usuario</class>
+        <class>Examen2.ClasesBase.Foto</class>
+        
         <!-- <class>main.java.logic</class> -->
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
@@ -18,8 +20,8 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <!-- Indica como será la generación de las tablas en el motor-->
             <!-- ver la documentación: https://docs.oracle.com/javaee/7/tutorial/persistence-intro005.htm -->
-            <property name="javax.persistence.schema-generation.database.action" value="none"/>   
-            <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+            <!-- <property name="javax.persistence.schema-generation.database.action" value="none"/>    -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
 
             <property name="show_sql" value="true"/>
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>

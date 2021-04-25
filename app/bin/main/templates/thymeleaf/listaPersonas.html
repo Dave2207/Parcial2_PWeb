@@ -29,6 +29,7 @@
                             <th>Ubicación</th>
                             <th>Usuario</th>
                             <th>Acción</th>
+                            <!-- <th>Foto</th> -->
                             <!-- <th>Activo</th> -->
                         </tr>
                     </thead>
@@ -47,6 +48,10 @@
                                 <a class="btn btn-warning " th:href="'/app/personas/edit/' + ${persona.Id}">Editar</a>
                                 <a class="btn btn-danger " th:href="'/app/personas/remove/' + ${persona.Id}">Eliminar</a>
                             </td>
+                            <!-- <td> -->
+                            <!-- <img th:src="${persona.foto.base64}" class="card-img-top  content" alt="Foto enviada"> -->
+
+                            <!-- </td> -->
                         </tr>
                     </tbody>
                 </table>

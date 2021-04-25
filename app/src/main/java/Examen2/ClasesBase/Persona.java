@@ -15,13 +15,16 @@ public class Persona implements Serializable{
     private UbicacionGeo ubicacion;
     @ManyToOne
     private Usuario usuario;
+    @OneToOne
+    private Foto foto;
 
-    public Persona(String nombre, String sector, String nivelEscolar, String latitud, String longitud, Usuario usuario) {
+    public Persona(String nombre, String sector, String nivelEscolar, String latitud, String longitud, Usuario usuario, Foto foto) {
         this.nombre = nombre;
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
         this.ubicacion = new UbicacionGeo(latitud, longitud);
         this.usuario = usuario;
+        this.foto = foto;
     }
     public Persona(Persona aux, Usuario usuario) {
         this.nombre = aux.getNombre();
@@ -29,6 +32,7 @@ public class Persona implements Serializable{
         this.nivelEscolar = aux.getNivelEscolar();
         this.ubicacion = new UbicacionGeo(aux.getUbicacion().getLatitud(), aux.getUbicacion().getLongitud());
         this.usuario = usuario;
+        this.foto = aux.getFoto();
     }
     
     public Persona(){ 
@@ -64,16 +68,22 @@ public class Persona implements Serializable{
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
+    
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String toString() {
         return this.nombre+"  "+this.sector+"  "+this.nivelEscolar+"  "+this.usuario.getNombre();
+    }
+    public Foto getFoto() {
+        return foto;
+    }
+    public void setFoto(Foto foto) {
+        this.foto = foto;
     }
 }
