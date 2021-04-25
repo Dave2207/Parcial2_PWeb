@@ -103,6 +103,13 @@ td>a:hover {
     text-decoration: none !important;
 }
 
+.rec1 {
+    position: relative;
+    /*width: 50%;*/
+    padding-top: 30%;
+    border: 5px solid white;
+}
+
 .rec {
     position: relative;
     width: 50%;

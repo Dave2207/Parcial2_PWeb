@@ -63,7 +63,7 @@
                 });
 
                 function sync() {
-                    alert('Funka')
+                    alert("inicio sync")
                     let data = [];
                     myStorage = window.localStorage;
 
@@ -84,6 +84,7 @@
                         console.log('Message from server ', event.data);
                     });
                     myStorage.clear();
+                    alert("final sync")
                 }
             </script>
 
