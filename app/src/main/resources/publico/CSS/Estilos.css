@@ -105,9 +105,9 @@ td>a:hover {
 
 .rec1 {
     position: relative;
-    /*width: 50%;*/
-    padding-top: 30%;
-    border: 5px solid white;
+    width: 100%;
+    /* padding-top: 100%; */
+    /* border: 5px solid white; */
 }
 
 .rec {

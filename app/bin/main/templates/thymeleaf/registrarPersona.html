@@ -83,14 +83,14 @@
                         <label for="nombre" class=big>Nombre</label>
                     </div>
                     <div class="col-4 offset-4">
-                        <input name="nombre" id="nombre" type="text" class="form-control form-control-lg col-4" required/>
+                        <input name="nombre" id="nombre" th:value="${nombre}" type="text" class="form-control form-control-lg col-4" required/>
                     </div>
                     <!-- Sector -->
                     <div class="col-4 offset-4">
                         <label for="sector" class=big>Sector</label>
                     </div>
                     <div class="col-4 offset-4">
-                        <input name="sector" id="sector" type="text" class="form-control form-control-lg col-4" required/>
+                        <input name="sector" id="sector" type="text" th:value="${sector}" class="form-control form-control-lg col-4" required/>
                     </div>
                     <!-- Nivel Escolar -->
                     <div class="col-4 offset-4">
@@ -104,6 +104,7 @@
                             <option class=big value="Grado Universitario">Grado Universitario</option>
                             <option class=big value="Posgrado">Posgrado</option>
                             <option class=big value="Doctorado">Doctorado</option>
+                            <!-- <option th:if="${editar != null}" class=big th:value="${nivelEscolar}" selected ></option> --> 
                         </select>
                     </div>
                     <div>
@@ -127,14 +128,14 @@
                     <div class="col-4 offset-4">
                         <label for="nombre" class=big>Foto</label>
                     </div>
-                    <div class="col-sm-4 offset-4">
-                        <div id=cam class=rec hidden>
-                            <video id="webcam" autoplay playsinline></video>
+                    <div class="col-4 offset-4">
+                        <div id=cam hidden>
+                            <video class=rec1 id="webcam" autoplay playsinline></video>
                             <canvas id="canvas" class="d-none"></canvas>
                             <audio id="snapSound" src="audio/snap.wav" preload="auto"></audio>
                         </div>
                         <div id=picture-div hidden>
-                            <img id="picture">
+                            <img id="picture" class=rec1>
                             <input id=picture-in name=picture-in type=text hidden required/>
                         </div>
                         <script>
@@ -199,6 +200,7 @@
                     buttonOnline.hidden = true;
                     buttonOffline.hidden = false;
                 });
+                buttonOffline.hidden = false;
             </script>
             <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
         </div>

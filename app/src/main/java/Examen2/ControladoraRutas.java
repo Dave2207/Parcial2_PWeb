@@ -15,7 +15,7 @@ import Examen2.ClasesBase.Persona;
 import Examen2.ClasesBase.UbicacionGeo;
 import Examen2.ClasesBase.Usuario;
 import Examen2.Services.FotoServices;
-import Examen2.Services.GestionDB;
+
 import Examen2.Services.PersonaServices;
 import Examen2.Services.UbicacionServices;
 import Examen2.Services.UsuarioServices;
@@ -48,6 +48,7 @@ public class ControladoraRutas {
                 ws("/synchronize/", ws -> {
                     ws.onConnect(ctx -> System.out.println("Connected"));
                     ws.onMessage(WsMessageContext -> {
+                        
                         List<String> JSONData = Arrays.asList(WsMessageContext.message().replace("},{", "}\n{").split("\n"));
                         //JSONData.set(0,JSONData.get(0)+"}");
                         //int i = -1;
@@ -55,7 +56,6 @@ public class ControladoraRutas {
                             ObjectMapper mapper = new ObjectMapper();
                             HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
                             Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto("image/png",aux.get("picture-in")));
-                            System.out.println(newPer.toString());
 
                             UbicacionGeo ubicacion = newPer.getUbicacion();
                             Foto foto = newPer.getFoto();
@@ -63,21 +63,8 @@ public class ControladoraRutas {
                             fotoServices.create(foto);
                             personaServices.create(newPer);
                         }
-
-                        //String nombre, String sector, String nivelEscolar, String latitud, String longitud, Usuario usuario
-                       
                     });
                 });
-                /*post("/synchronize/",ctx -> {
-                    System.out.println("Hola");
-                    System.out.println(ctx.body());
-                    System.out.println(ctx.url());
-                    
-                    System.out.println(ctx.attributeMap());
-                    System.out.println(ctx.formParam("data"));
-                    System.out.println(ctx.formParams("data"));
-                    
-                });*/
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
                     
                     try{
@@ -115,7 +102,6 @@ public class ControladoraRutas {
                         } else {
                         int id = Integer.valueOf(ctx.pathParam("id"));
                         Persona aux = personaServices.find(id);
-
                         HashMap<String, Object> modelo = new HashMap<>();
                         modelo.put("id", aux.getId());
                         modelo.put("nombre", aux.getNombre());
@@ -247,15 +233,6 @@ public class ControladoraRutas {
                             usuarioServices.create(aux);
 
                         }
-
-                        // if(status == "online"){
-                        //     if(id == -1){
-
-                        //     }else{
-                                
-                        //     }
-                        // }
-
                         ctx.redirect("/app/usuarios/list");
 
                     });
@@ -263,6 +240,42 @@ public class ControladoraRutas {
             });
 
             path("/REST", () -> {
+                after(ctx -> {
+                    ctx.header("Content-Type", "application/json");
+                });
+
+                get("/", ctx ->{
+                    //Listar personas
+                    ctx.json(personaServices.findAll());
+                });
+
+                get("/:id", ctx -> {
+                    //Listar una persona
+                    int id = Integer.valueOf(ctx.pathParam("id"));
+                    ctx.json(personaServices.find(id));
+                });
+                
+
+                post("/", ctx -> {
+                    //Crear persona
+                    ObjectMapper mapper = new ObjectMapper();
+                    HashMap<String,String> aux = mapper.readValue(ctx.body(), HashMap.class);
+                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),usuarioServices.find(1), new Foto("image/png", aux.get("base64")));
+                    UbicacionGeo ubicacion = newPer.getUbicacion();
+                    Foto foto = newPer.getFoto();
+                    fotoServices.create(foto);
+                    ubicacionServices.create(ubicacion);
+                    personaServices.create(newPer);
+                });
+
+                delete("/:id", ctx -> {
+                    //Borrar persona
+                    int id = Integer.valueOf(ctx.pathParam("id"));
+                    ctx.json(personaServices.delete(id));
+                });
+            });
+
+            path("/SOAP", () -> {
                 after(ctx -> {
                     ctx.header("Content-Type", "application/json");
                 });

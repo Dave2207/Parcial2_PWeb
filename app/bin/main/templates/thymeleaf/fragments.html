@@ -22,16 +22,12 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a href='/app/personas/regist' class="nav-item nav-link big">Registrar Persona</a>
-                    <a href='/app/usuarios/regist' class="nav-item nav-link big only-online">Registrar Usuario</a>
                     <a href='/app/personas/list' class="nav-item nav-link big only-online bg-red">Lista de Personas</a>
                     <a href='/app/usuarios/list' class="nav-item nav-link big only-online">Lista de Usuarios</a>
                     <a onclick="sync()" class="nav-item nav-link big only-online" id="synchron" style="cursor: pointer;">Sincronizar con el servidor</a>
                     <a th:if="${user != null}" href='/public/logout/' class=" nav-item nav-link only-online">Cerrar Sesión</a>
                 </div>
             </div>
-            <!-- <form method=post action="/app/synchronize/" id="synchro" class="form">
-                <div id=data hidden></div>
-            </form> -->
             <script>
                 var onlineElements = document.getElementsByClassName("only-online");
                 var i;
@@ -39,7 +35,8 @@
                     onlineElements[i].hidden = !navigator.onLine;
                 }
                 if (window.localStorage.length > 0) {
-                    document.getElementById("synchron").hidden = !navigator.onLine;
+                    // document.getElementById("synchron").hidden = !navigator.onLine;
+                    document.getElementById("synchron").hidden = false;
                 } else {
                     document.getElementById("synchron").hidden = true;
                 }
@@ -63,11 +60,10 @@
                 });
 
                 function sync() {
-                    alert("inicio sync")
                     let data = [];
                     myStorage = window.localStorage;
 
-                    alert(myStorage)
+
                     for (let index = 0; index < myStorage.length; index++) {
                         data.push(myStorage.getItem(index.toString()));
                     }
@@ -76,7 +72,6 @@
                     const socket = new WebSocket('ws://localhost:7000/app/synchronize/');
 
                     // Connection opened
-                    alert(data)
                     socket.addEventListener('open', function(event) {
                         socket.send(data);
 
@@ -86,7 +81,6 @@
                         console.log('Message from server ', event.data);
                     });
                     myStorage.clear();
-                    alert("final sync")
                 }
             </script>
 
