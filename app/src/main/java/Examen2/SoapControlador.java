@@ -40,6 +40,7 @@ public class SoapControlador {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+        System.out.println("bien");
     }
 
     /**

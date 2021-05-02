@@ -37,10 +37,14 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
-    implementation "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
-    implementation "com.sun.xml.ws:jaxws-rt:2.3.1"
-    implementation "com.sun.xml.ws:rt:2.3.1"
-    implementation group: 'org.eclipse.jetty', name: 'jetty-http-spi', version: '9.4.30.v20200611'  
+    compile group: 'org.eclipse.jetty', name: 'jetty-http-spi', version: '9.4.30.v20200611'
+    compile "org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438"
+    compile "com.sun.xml.ws:jaxws-rt:2.3.1"
+    compile "com.sun.xml.ws:rt:2.3.1" 
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.10.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.10.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.10.5'
 
 }
 

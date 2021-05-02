@@ -4,35 +4,69 @@ package Examen2.Services;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.json.JSONArray;
+
+import Examen2.ClasesBase.Foto;
 import Examen2.ClasesBase.Persona;
+import Examen2.ClasesBase.UbicacionGeo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 @WebService
 public class PersonaWebServices {
     private PersonaServices personaServices = PersonaServices.getInstance();
+    private ObjectMapper mapper = new ObjectMapper();
+    @WebMethod
+    public String holaMundo(String hola){
+        System.out.println("Ejecuntado en el servidor.");
+        return "Hola Mundo "+hola+", :-D";
+    }   
 
     @WebMethod
-    public List<Persona> getListaPersona(){
+    public String otroMetodo(String hola){
+        System.out.println("Ejecuntado en el servidor.");
+        return "Hola Mundo "+hola+", :-D";
+    }
+
+    @WebMethod
+    public List<String> getListaPersona(){
+        List<String> fin = new ArrayList<String>();
         List<Persona> aux = personaServices.findAll();
         for(Persona p : aux){
             p.getFoto().setBase64("");
-        }
-        return aux;
-    }
-
-    public List<Persona> getPersonasCreadasUsuario(int usuarioId){
-
-        List<Persona> personasUsuario = new ArrayList<Persona>();
-        for (Persona p : this.personaServices.findAll()){
-            if(p.getUsuario().getId() == usuarioId){
-                p.getFoto().setBase64("");
-                personasUsuario.add(p);
+            try {
+                fin.add(mapper.writeValueAsString(p));
+            } catch (JsonProcessingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
-        return personasUsuario;
+        return fin; 
+    }
+
+    public List<String> getPersonasCreadasUsuario(int usuarioId){
+
+        List<String> fin = new ArrayList<String>();
+        List<Persona> aux = personaServices.findAll();
+
+        for (Persona p : aux){
+            if(p.getUsuario().getId() == usuarioId){
+                p.getFoto().setBase64("");
+                try {
+                    fin.add(mapper.writeValueAsString(p));
+                } catch (JsonProcessingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+        return fin; 
     }
 
     @WebMethod
@@ -41,12 +75,15 @@ public class PersonaWebServices {
     }
 
     @WebMethod
-    public Persona crearPersona(Persona Persona){
-        return personaServices.create(Persona);
-    }
+    public Persona crearPersona(String PersonaJSON){
+        HashMap<String,String> aux = mapper.readValue(PersonaJSON, HashMap.class);
+        Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),UsuarioServices.getInstance().find(1), new Foto("image/png",aux.get("picture-in")));
 
-    @WebMethod
-    public Persona actualizarPersona(Persona Persona){
-        return personaServices.update(Persona);
+        UbicacionGeo ubicacion = newPer.getUbicacion();
+        Foto foto = newPer.getFoto();
+        UbicacionServices.getInstance().create(ubicacion);
+        FotoServices.getInstance().create(foto);
+        personaServices.create(newPer);
+        return newPer;
     }
 }

@@ -37,7 +37,6 @@ public class App {
             UsuarioServices.getInstance().create(new Usuario("admin","admin","Administrador"));
         }
         app.after(ctx -> {
-            //System.out.println("Enviando el header de seguridad para el Service Worker");
             ctx.header("Service-Worker-Allowed", "/");
         });
         
