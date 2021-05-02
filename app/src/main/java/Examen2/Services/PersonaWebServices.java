@@ -16,7 +16,11 @@ public class PersonaWebServices {
 
     @WebMethod
     public List<Persona> getListaPersona(){
-        return personaServices.findAll();
+        List<Persona> aux = personaServices.findAll();
+        for(Persona p : aux){
+            p.getFoto().setBase64("");
+        }
+        return aux;
     }
 
     public List<Persona> getPersonasCreadasUsuario(int usuarioId){
@@ -24,6 +28,7 @@ public class PersonaWebServices {
         List<Persona> personasUsuario = new ArrayList<Persona>();
         for (Persona p : this.personaServices.findAll()){
             if(p.getUsuario().getId() == usuarioId){
+                p.getFoto().setBase64("");
                 personasUsuario.add(p);
             }
         }

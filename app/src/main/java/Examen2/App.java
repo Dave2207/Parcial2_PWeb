@@ -29,6 +29,7 @@ public class App {
                 wsF.getPolicy().setMaxTextMessageSize(10000000);
             });
         });
+        new SoapControlador(app).aplicarRutas();
         new ControladoraRutas(app).aplicarRutas();
 
         app.start(7000);

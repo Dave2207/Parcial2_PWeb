@@ -267,12 +267,6 @@ public class ControladoraRutas {
                     ubicacionServices.create(ubicacion);
                     personaServices.create(newPer);
                 });
-
-                delete("/:id", ctx -> {
-                    //Borrar persona
-                    int id = Integer.valueOf(ctx.pathParam("id"));
-                    ctx.json(personaServices.delete(id));
-                });
             });
 
             path("/SOAP", () -> {

@@ -2,7 +2,7 @@ import requests
 import json
 
 class Client():
-    def __init__(self, endpoint='')
+    def __init__(self, endpoint=''):
         self.endpoint = endpoint
     
     def findAll(self):

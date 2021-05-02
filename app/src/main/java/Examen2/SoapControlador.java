@@ -36,7 +36,7 @@ public class SoapControlador {
             PersonaWebServices wsa = new PersonaWebServices();
             Endpoint endpoint = Endpoint.create(wsa);
             endpoint.publish(context);
-            // Para acceder al wsdl en http://localhost:7000/ws/EstudianteWebServices?wsdl
+            // Para acceder al wsdl en http://localhost:7000/ws/PersonaWebServices?wsdl
         }catch (Exception ex){
             ex.printStackTrace();
         }
