@@ -29,6 +29,8 @@
                 </div>
             </div>
             <script>
+                const socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
+
                 var onlineElements = document.getElementsByClassName("only-online");
                 var i;
                 for (i = 0; i < onlineElements.length; i++) {
@@ -36,6 +38,7 @@
                 }
                 if (window.localStorage.length > 0) {
                     document.getElementById("synchron").hidden = !navigator.onLine;
+                    socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
                 } else {
                     document.getElementById("synchron").hidden = true;
                 }
@@ -50,6 +53,7 @@
                 window.addEventListener('online', function() {
                     //console.log('online');
                     var onlineElements = document.getElementsByClassName("only-online");
+                    socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
                     var i;
                     for (i = 0; i < onlineElements.length; i++) {
                         //onlineElements[i].classList.remove('disable-me');
@@ -58,7 +62,7 @@
 
                 });
 
-                const socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
+
 
                 function sync() {
                     let data = [];
