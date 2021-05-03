@@ -72,8 +72,18 @@ public class PersonaWebServices {
     }
 
     @WebMethod
-    public Persona getPersona(int matricula){
-        return personaServices.find(matricula);
+    public String getPersona(int matricula){
+        Persona aux = personaServices.find(matricula);
+        aux.getFoto().setBase64("");
+        String fin = "";
+        
+        try {
+            fin = mapper.writeValueAsString(aux);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return fin;
     }
 
     @WebMethod
