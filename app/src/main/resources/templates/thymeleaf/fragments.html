@@ -68,12 +68,13 @@
                     }
 
                     // Create WebSocket connection.
-                    const socket = new WebSocket('wss://registro.drakath.studio/app/synchronize');
+                    const socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
 
                     // Connection opened
+                    alert('hola')
                     socket.addEventListener('open', function(event) {
                         socket.send(data);
-
+                        alert('adios')
                     });
 
                     socket.addEventListener('message', function(event) {
