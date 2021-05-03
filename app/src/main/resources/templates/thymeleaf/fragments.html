@@ -58,6 +58,8 @@
 
                 });
 
+                const socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
+
                 function sync() {
                     let data = [];
                     myStorage = window.localStorage;
@@ -67,11 +69,7 @@
                         data.push(myStorage.getItem(index.toString()));
                     }
 
-                    // Create WebSocket connection.
-                    const socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
-
                     // Connection opened
-                    alert('hola')
                     socket.addEventListener('open', function(event) {
                         socket.send(data);
                         alert('adios')
