@@ -5,6 +5,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONArray;
@@ -76,7 +77,16 @@ public class PersonaWebServices {
 
     @WebMethod
     public Persona crearPersona(String PersonaJSON){
-        HashMap<String,String> aux = mapper.readValue(PersonaJSON, HashMap.class);
+        HashMap<String, String> aux = null;
+        try {
+            aux = mapper.readValue(PersonaJSON, HashMap.class);
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),UsuarioServices.getInstance().find(1), new Foto("image/png",aux.get("picture-in")));
 
         UbicacionGeo ubicacion = newPer.getUbicacion();
