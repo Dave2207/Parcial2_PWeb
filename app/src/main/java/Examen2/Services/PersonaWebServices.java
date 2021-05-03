@@ -51,6 +51,7 @@ public class PersonaWebServices {
         return fin; 
     }
 
+    @WebMethod
     public List<String> getPersonasCreadasUsuario(int usuarioId){
 
         List<String> fin = new ArrayList<String>();
