@@ -73,7 +73,7 @@
                     }
 
                     // Connection opened
-                    const socket = new WebSocket("ws://registro.drakath.studio/synchronize/", "echo-protocol");
+                    const socket = new WebSocket("ws://localhost:7000/synchronize/", "echo-protocol");
 
                     socket.onopen = function(event) {
                         alert("Conectando");
