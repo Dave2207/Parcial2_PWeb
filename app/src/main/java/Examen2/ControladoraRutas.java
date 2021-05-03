@@ -34,6 +34,26 @@ public class ControladoraRutas {
     }
 
     public void aplicarRutas(){
+        app.ws("/synchronize", ws -> {
+            ws.onConnect(ctx -> System.out.println("Connected"));
+            ws.onMessage(WsMessageContext -> {
+                
+                List<String> JSONData = Arrays.asList(WsMessageContext.message().replace("},{", "}\n{").split("\n"));
+                //JSONData.set(0,JSONData.get(0)+"}");
+                //int i = -1;
+                for (String data :JSONData){
+                    ObjectMapper mapper = new ObjectMapper();
+                    HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
+                    Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto("image/png",aux.get("picture-in")));
+
+                    UbicacionGeo ubicacion = newPer.getUbicacion();
+                    Foto foto = newPer.getFoto();
+                    ubicacionServices.create(ubicacion);
+                    fotoServices.create(foto);
+                    personaServices.create(newPer);
+                }
+            });
+        });
         app.routes(() -> {
            /* ws("/websocket/algo", ws -> {
                 ObjectMapper mapper = new ObjectMapper();
@@ -44,26 +64,7 @@ public class ControladoraRutas {
                 ctx.redirect("/app/personas/regist");
             });
             
-            ws("/synchronize/", ws -> {
-                ws.onConnect(ctx -> System.out.println("Connected"));
-                ws.onMessage(WsMessageContext -> {
-                    
-                    List<String> JSONData = Arrays.asList(WsMessageContext.message().replace("},{", "}\n{").split("\n"));
-                    //JSONData.set(0,JSONData.get(0)+"}");
-                    //int i = -1;
-                    for (String data :JSONData){
-                        ObjectMapper mapper = new ObjectMapper();
-                        HashMap<String,String> aux = mapper.readValue(data, HashMap.class);
-                        Persona newPer = new Persona(aux.get("nombre"),aux.get("sector"),aux.get("nivelEscolar"),aux.get("latitud"),aux.get("longitud"),WsMessageContext.sessionAttribute("user"), new Foto("image/png",aux.get("picture-in")));
-
-                        UbicacionGeo ubicacion = newPer.getUbicacion();
-                        Foto foto = newPer.getFoto();
-                        ubicacionServices.create(ubicacion);
-                        fotoServices.create(foto);
-                        personaServices.create(newPer);
-                    }
-                });
-            });
+            
             path("/app", () -> {
                 before(ctx -> {//en CRUD hay un before, que comprueba que el usuario esté loggeado, sino lo manda al login. Si el usuario ya se encuentra loggeado, se procede a la página solicitada
                     

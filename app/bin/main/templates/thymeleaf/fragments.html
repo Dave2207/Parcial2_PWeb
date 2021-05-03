@@ -72,17 +72,17 @@
                     }
 
                     // Connection opened
-                    const socket = new WebSocket("wss://registro.drakath.studio/synchronize/", "echo-protocol");
+                    const socket = new WebSocket("ws://registro.drakath.studio/synchronize/", "echo-protocol");
 
                     socket.onopen = function(event) {
                         alert("Conectando");
-
+                        socket.send(data);
+                        myStorage.clear();
+                        alert("Realizado");
+                        location.reload();
                     };
 
-                    socket.send(data);
-                    myStorage.clear();
-                    alert("Realizado");
-                    location.reload();
+
 
                     socket.onmessage = function(event) {
                         console.log('Message from server ', event.data);
