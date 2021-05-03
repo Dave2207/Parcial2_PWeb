@@ -39,6 +39,9 @@
                 if (window.localStorage.length > 0) {
                     document.getElementById("synchron").hidden = !navigator.onLine;
                     socket = new WebSocket('wss://registro.drakath.studio/synchronize/');
+                    socket.addEventListener('open', function(event) {
+                        alert("el dique se conectó")
+                    });
                 } else {
                     document.getElementById("synchron").hidden = true;
                 }
